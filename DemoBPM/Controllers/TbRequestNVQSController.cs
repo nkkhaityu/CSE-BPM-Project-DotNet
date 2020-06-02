@@ -31,14 +31,38 @@ namespace DemoBPM.Controllers
             throw new NotImplementedException();
         }
 
-        public override Task<IHttpActionResult> PatchEntity([FromODataUri] int key, Delta<tbRequestNVQ> patch)
+        public override async Task<IHttpActionResult> PatchEntity([FromODataUri] int key, Delta<tbRequestNVQ> patch)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var tbRequestNVQS = _db.tbRequestNVQS.Find(key);
+            if (tbRequestNVQS == null)
+            {
+                return NotFound();
+            }
+            Validate(patch.GetInstance());
+
+            patch.Patch(tbRequestNVQS);
+
+            await _db.SaveChangesAsync();
+
+            return Ok(tbRequestNVQS);
         }
 
-        public override Task<IHttpActionResult> PostEntity(tbRequestNVQ se)
+        public override async Task<IHttpActionResult> PostEntity(tbRequestNVQ se)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _db.tbRequestNVQS.Add(se);
+            await _db.SaveChangesAsync();
+
+            return Ok(se);
         }
     }
 }

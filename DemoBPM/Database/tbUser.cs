@@ -18,6 +18,7 @@ namespace DemoBPM.Database
         public tbUser()
         {
             this.tbUserRoles = new HashSet<tbUserRole>();
+            this.tbRequestNVQS = new HashSet<tbRequestNVQ>();
         }
     
         public int ID { get; set; }
@@ -29,5 +30,7 @@ namespace DemoBPM.Database
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbUserRole> tbUserRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbRequestNVQ> tbRequestNVQS { get; set; }
     }
 }

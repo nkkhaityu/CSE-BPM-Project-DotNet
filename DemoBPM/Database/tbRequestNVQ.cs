@@ -18,5 +18,7 @@ namespace DemoBPM.Database
         public string Content { get; set; }
         public Nullable<int> UserID { get; set; }
         public string Status { get; set; }
+    
+        public virtual tbUser tbUser { get; set; }
     }
 }

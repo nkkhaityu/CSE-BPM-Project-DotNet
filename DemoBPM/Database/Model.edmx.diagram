@@ -11,6 +11,7 @@
         <EntityTypeShape EntityType="testModel.tbUserRole" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="testModel.FK_tbUserRole_tbRole" ManuallyRouted="false" />
         <AssociationConnector Association="testModel.FK_tbUserRole_tbUser" ManuallyRouted="false" />
+        <AssociationConnector Association="testModel.FK_tbRequestNVQS_tbUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

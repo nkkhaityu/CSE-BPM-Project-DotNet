@@ -18,11 +18,6 @@ namespace DemoBPM.Controllers
             : base("tbUserController")
         { }
 
-        public override async Task<IHttpActionResult> DeleteEntity([FromODataUri] int key)
-        {
-            throw new NotImplementedException();
-        }
-
         public override IQueryable<tbUser> Get()
         {
             return _db.tbUsers.AsQueryable();
@@ -108,6 +103,11 @@ namespace DemoBPM.Controllers
             await _db.SaveChangesAsync();
 
             return Ok(se);
+        }
+
+        public override async Task<IHttpActionResult> DeleteEntity([FromODataUri] int key)
+        {
+            throw new NotImplementedException();
         }
 
         [HttpGet]
