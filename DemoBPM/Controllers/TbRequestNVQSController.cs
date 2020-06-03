@@ -21,9 +21,10 @@ namespace DemoBPM.Controllers
             throw new NotImplementedException();
         }
 
+        [EnableQuery]
         public override IQueryable<tbRequestNVQ> Get()
         {
-            throw new NotImplementedException();
+            return _db.tbRequestNVQS.AsQueryable();
         }
 
         public override SingleResult<tbRequestNVQ> Get([FromODataUri] int key)

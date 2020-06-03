@@ -18,14 +18,23 @@ namespace DemoBPM.Controllers
             : base("tbUserController")
         { }
 
+        [EnableQuery]
         public override IQueryable<tbUser> Get()
         {
             return _db.tbUsers.AsQueryable();
         }
 
+        [EnableQuery]
         public override SingleResult<tbUser> Get([FromODataUri] int key)
         {
-            throw new NotImplementedException();
+            return SingleResult.Create(_db.tbUsers.Where(tbUser => tbUser.ID == key));
+        }
+
+        [EnableQuery]
+        [HttpGet]
+        public IHttpActionResult GetCurrentUser()
+        {
+            return Ok(_db.tbUsers.Where(tbUser => tbUser.ID == AuthSession.Current.UserId));
         }
 
         [AllowAnonymous]
@@ -110,10 +119,10 @@ namespace DemoBPM.Controllers
             throw new NotImplementedException();
         }
 
+        [EnableQuery]
         [HttpGet]
         public IHttpActionResult GetUserRole()
         {
-            //var userId = AuthSession.Current.UserId;
             var ret = _db.sp_GetUserRole();
 
             return Ok(ret);

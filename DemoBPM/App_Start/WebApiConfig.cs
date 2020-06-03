@@ -25,7 +25,11 @@ namespace DemoBPM
 
             var builder = new ODataConventionModelBuilder();
 
+            config.Count().Filter().OrderBy().Expand().Select().MaxTop(null);
+
             builder.EntitySet<tbUser>("tbUser");
+
+            builder.EntityType<tbUser>().Collection.Function("GetCurrentUser").Returns<tbUser>();
             builder.EntityType<tbUser>().Collection.Function("GetUserRole").Returns<sp_GetUserRole_Result>();
             builder.EntityType<tbUser>().Collection.Action("Login").Returns<string>().Parameter<tbUser>("user");
             builder.EntityType<tbUser>().Collection.Action("Logout").Returns<string>();
