@@ -3,10 +3,8 @@ using DemoBPM.Common.Security;
 using DemoBPM.Database;
 using Microsoft.AspNet.OData;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 namespace DemoBPM.Controllers
@@ -18,7 +16,7 @@ namespace DemoBPM.Controllers
             : base("tbUserController")
         { }
 
-        [EnableQuery]
+        [EnableQuery(PageSize = 20)]
         public override IQueryable<tbUser> Get()
         {
             return _db.tbUsers.AsQueryable();
@@ -116,7 +114,16 @@ namespace DemoBPM.Controllers
 
         public override async Task<IHttpActionResult> DeleteEntity([FromODataUri] int key)
         {
-            throw new NotImplementedException();
+            tbUser user = _db.tbUsers.Find(key);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _db.tbUsers.Remove(user);
+            await _db.SaveChangesAsync();
+
+            return Ok();
         }
 
         [EnableQuery]

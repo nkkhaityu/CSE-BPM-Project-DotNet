@@ -7,51 +7,51 @@ using System.Web.Http;
 
 namespace DemoBPM.Controllers
 {
-    public class TbRoleController : TBBaseController<Entities, tbRole>
+    public class TbRequestController : TBBaseController<Entities, tbRequest>
     {
-        public TbRoleController()
-            : base("TbRoleController")
+        public TbRequestController()
+            : base("TbRequestController")
         { }
 
         [EnableQuery(PageSize = 20)]
-        public override IQueryable<tbRole> Get()
+        public override IQueryable<tbRequest> Get()
         {
-            return _db.tbRoles.AsQueryable();
+            return _db.tbRequests.AsQueryable();
         }
 
-        public override SingleResult<tbRole> Get([FromODataUri] int key)
+        public override SingleResult<tbRequest> Get([FromODataUri] int key)
         {
-            return SingleResult.Create(_db.tbRoles.Where(tbRole => tbRole.ID == key));
+            return SingleResult.Create(_db.tbRequests.Where(tbRequest => tbRequest.ID == key));
         }
 
-        public override async Task<IHttpActionResult> PostEntity(tbRole se)
+        public override async Task<IHttpActionResult> PostEntity(tbRequest se)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _db.tbRoles.Add(se);
+            _db.tbRequests.Add(se);
             await _db.SaveChangesAsync();
 
             return Ok();
         }
 
-        public override async Task<IHttpActionResult> PatchEntity([FromODataUri] int key, Delta<tbRole> patch)
+        public override async Task<IHttpActionResult> PatchEntity([FromODataUri] int key, Delta<tbRequest> patch)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var role = _db.tbRoles.Find(key);
-            if (role == null)
+            var request = _db.tbRequests.Find(key);
+            if (request == null)
             {
                 return NotFound();
             }
             Validate(patch.GetInstance());
 
-            patch.Patch(role);
+            patch.Patch(request);
 
             await _db.SaveChangesAsync();
 
@@ -60,13 +60,13 @@ namespace DemoBPM.Controllers
 
         public override async Task<IHttpActionResult> DeleteEntity([FromODataUri] int key)
         {
-            tbRole role = _db.tbRoles.Find(key);
-            if (role == null)
+            tbRequest request = _db.tbRequests.Find(key);
+            if (request == null)
             {
                 return NotFound();
             }
 
-            _db.tbRoles.Remove(role);
+            _db.tbRequests.Remove(request);
             await _db.SaveChangesAsync();
 
             return Ok();

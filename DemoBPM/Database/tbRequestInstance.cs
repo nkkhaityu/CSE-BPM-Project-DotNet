@@ -12,21 +12,24 @@ namespace DemoBPM.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class tbRole : DemoBPM.Common.APISupport.SEObject
+    public partial class tbRequestInstance : DemoBPM.Common.APISupport.SEObject
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbRole()
+        public tbRequestInstance()
         {
-            this.tbSteps = new HashSet<tbStep>();
-            this.tbUserRoles = new HashSet<tbUserRole>();
+            this.tbStepInstances = new HashSet<tbStepInstance>();
         }
     
         public int ID { get; set; }
-        public string Name { get; set; }
+        public Nullable<int> UserID { get; set; }
+        public Nullable<int> RequestID { get; set; }
+        public string DefaultContent { get; set; }
+        public Nullable<int> CurrentStepIndex { get; set; }
+        public string Status { get; set; }
     
+        public virtual tbRequest tbRequest { get; set; }
+        public virtual tbUser tbUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbStep> tbSteps { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbUserRole> tbUserRoles { get; set; }
+        public virtual ICollection<tbStepInstance> tbStepInstances { get; set; }
     }
 }

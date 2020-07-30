@@ -28,13 +28,20 @@ namespace DemoBPM
             config.Count().Filter().OrderBy().Expand().Select().MaxTop(null);
 
             builder.EntitySet<tbUser>("tbUser");
-
             builder.EntityType<tbUser>().Collection.Function("GetCurrentUser").Returns<tbUser>();
             builder.EntityType<tbUser>().Collection.Function("GetUserRole").Returns<sp_GetUserRole_Result>();
             builder.EntityType<tbUser>().Collection.Action("Login").Returns<string>().Parameter<tbUser>("user");
             builder.EntityType<tbUser>().Collection.Action("Logout").Returns<string>();
 
-            builder.EntitySet<tbRequestNVQ>("tbRequestNVQS");
+            builder.EntitySet<tbRole>("tbRole");
+            builder.EntitySet<tbRequest>("tbRequest");
+            builder.EntitySet<tbRequestInstance>("tbRequestInstance");
+            builder.EntitySet<tbStep>("tbStep");
+
+            builder.EntitySet<tbStepInstance>("tbStepInstance");
+            builder.EntityType<tbRequestInstance>().Collection.Function("GetRequestInstance").Returns<sp_GetRequestInstance_Result>();
+
+            builder.EntitySet<tbRequestNVQS>("tbRequestNVQS");  
 
             config.MapODataServiceRoute("odata", "odata", model: builder.GetEdmModel());
         }

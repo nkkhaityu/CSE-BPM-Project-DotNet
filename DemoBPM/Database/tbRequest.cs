@@ -12,31 +12,28 @@ namespace DemoBPM.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class tbUser : DemoBPM.Common.APISupport.SEObject
+    public partial class tbRequest : DemoBPM.Common.APISupport.SEObject
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbUser()
+        public tbRequest()
         {
             this.tbRequestInstances = new HashSet<tbRequestInstance>();
-            this.tbRequestNVQS = new HashSet<tbRequestNVQS>();
-            this.tbStepInstances = new HashSet<tbStepInstance>();
-            this.tbUserRoles = new HashSet<tbUserRole>();
+            this.tbSteps = new HashSet<tbStep>();
         }
     
         public int ID { get; set; }
-        public string UserName { get; set; }
-        public string Mail { get; set; }
-        public string Phone { get; set; }
-        public string Password { get; set; }
-        public string FullName { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Status { get; set; }
+        public Nullable<int> CreatorID { get; set; }
+        public Nullable<System.DateTime> CreatedTime { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
+        public Nullable<System.DateTime> DueDate { get; set; }
+        public Nullable<int> NumOfSteps { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbRequestInstance> tbRequestInstances { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbRequestNVQS> tbRequestNVQS { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbStepInstance> tbStepInstances { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbUserRole> tbUserRoles { get; set; }
+        public virtual ICollection<tbStep> tbSteps { get; set; }
     }
 }

@@ -7,51 +7,51 @@ using System.Web.Http;
 
 namespace DemoBPM.Controllers
 {
-    public class TbRoleController : TBBaseController<Entities, tbRole>
+    public class TbStepInstanceController : TBBaseController<Entities, tbStepInstance>
     {
-        public TbRoleController()
-            : base("TbRoleController")
+        public TbStepInstanceController()
+            : base("TbStepInstanceController")
         { }
 
         [EnableQuery(PageSize = 20)]
-        public override IQueryable<tbRole> Get()
+        public override IQueryable<tbStepInstance> Get()
         {
-            return _db.tbRoles.AsQueryable();
+            return _db.tbStepInstances.AsQueryable();
         }
 
-        public override SingleResult<tbRole> Get([FromODataUri] int key)
+        public override SingleResult<tbStepInstance> Get([FromODataUri] int key)
         {
-            return SingleResult.Create(_db.tbRoles.Where(tbRole => tbRole.ID == key));
+            return SingleResult.Create(_db.tbStepInstances.Where(tbStepInstance => tbStepInstance.ID == key));
         }
 
-        public override async Task<IHttpActionResult> PostEntity(tbRole se)
+        public override async Task<IHttpActionResult> PostEntity(tbStepInstance se)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _db.tbRoles.Add(se);
+            _db.tbStepInstances.Add(se);
             await _db.SaveChangesAsync();
 
             return Ok();
         }
 
-        public override async Task<IHttpActionResult> PatchEntity([FromODataUri] int key, Delta<tbRole> patch)
+        public override async Task<IHttpActionResult> PatchEntity([FromODataUri] int key, Delta<tbStepInstance> patch)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var role = _db.tbRoles.Find(key);
-            if (role == null)
+            var stepInstance = _db.tbStepInstances.Find(key);
+            if (stepInstance == null)
             {
                 return NotFound();
             }
             Validate(patch.GetInstance());
 
-            patch.Patch(role);
+            patch.Patch(stepInstance);
 
             await _db.SaveChangesAsync();
 
@@ -60,13 +60,13 @@ namespace DemoBPM.Controllers
 
         public override async Task<IHttpActionResult> DeleteEntity([FromODataUri] int key)
         {
-            tbRole role = _db.tbRoles.Find(key);
-            if (role == null)
+            tbStepInstance stepInstance = _db.tbStepInstances.Find(key);
+            if (stepInstance == null)
             {
                 return NotFound();
             }
 
-            _db.tbRoles.Remove(role);
+            _db.tbStepInstances.Remove(stepInstance);
             await _db.SaveChangesAsync();
 
             return Ok();

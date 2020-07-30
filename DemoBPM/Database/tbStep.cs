@@ -12,13 +12,15 @@ namespace DemoBPM.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class tbRequestNVQ : DemoBPM.Common.APISupport.SEObject
+    public partial class tbStep : DemoBPM.Common.APISupport.SEObject
     {
         public int ID { get; set; }
-        public string Content { get; set; }
-        public Nullable<int> UserID { get; set; }
-        public string Status { get; set; }
+        public Nullable<int> RequestID { get; set; }
+        public string Description { get; set; }
+        public Nullable<int> ApproverRoleID { get; set; }
+        public Nullable<int> StepIndex { get; set; }
     
-        public virtual tbUser tbUser { get; set; }
+        public virtual tbRequest tbRequest { get; set; }
+        public virtual tbRole tbRole { get; set; }
     }
 }
