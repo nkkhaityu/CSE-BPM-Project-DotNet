@@ -30,19 +30,6 @@
           <Property Name="CurrentStepIndex" Type="int" />
           <Property Name="Status" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <EntityType Name="tbRequestNVQS">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Content" Type="nvarchar(max)" />
-          <Property Name="UserID" Type="int" />
-          <Property Name="Status" Type="varchar" MaxLength="20" />
-          <Property Name="StudentName" Type="nvarchar" MaxLength="50" />
-          <Property Name="StudentID" Type="nvarchar" MaxLength="50" />
-          <Property Name="Email" Type="nvarchar" MaxLength="50" />
-          <Property Name="Phone" Type="int" />
-        </EntityType>
         <EntityType Name="tbRole">
           <Key>
             <PropertyRef Name="ID" />
@@ -69,6 +56,8 @@
           <Property Name="ApproverID" Type="int" />
           <Property Name="DefaultContent" Type="nvarchar(max)" />
           <Property Name="Status" Type="nvarchar" MaxLength="100" />
+          <Property Name="StepID" Type="int" />
+          <Property Name="ResponseMessage" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbUser">
           <Key>
@@ -113,18 +102,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbRequestNVQS_tbUser">
-          <End Role="tbUser" Type="Self.tbUser" Multiplicity="0..1" />
-          <End Role="tbRequestNVQS" Type="Self.tbRequestNVQS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbUser">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbRequestNVQS">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tbStep_tbRequest">
           <End Role="tbRequest" Type="Self.tbRequest" Multiplicity="0..1" />
           <End Role="tbStep" Type="Self.tbStep" Multiplicity="*" />
@@ -158,6 +135,18 @@
             </Principal>
             <Dependent Role="tbStepInstance">
               <PropertyRef Name="RequestInstanceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbStepInstance_tbStep">
+          <End Role="tbStep" Type="Self.tbStep" Multiplicity="0..1" />
+          <End Role="tbStepInstance" Type="Self.tbStepInstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbStep">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbStepInstance">
+              <PropertyRef Name="StepID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -199,10 +188,10 @@
         </Association>
         <Function Name="sp_GetRequestInstance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_GetUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetStepInstanceDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="testModelStoreContainer">
           <EntitySet Name="tbRequest" EntityType="Self.tbRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbRequestInstance" EntityType="Self.tbRequestInstance" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbRequestNVQS" EntityType="Self.tbRequestNVQS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbRole" EntityType="Self.tbRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbStep" EntityType="Self.tbStep" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbStepInstance" EntityType="Self.tbStepInstance" Schema="dbo" store:Type="Tables" />
@@ -216,10 +205,6 @@
             <End Role="tbUser" EntitySet="tbUser" />
             <End Role="tbRequestInstance" EntitySet="tbRequestInstance" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbRequestNVQS_tbUser" Association="Self.FK_tbRequestNVQS_tbUser">
-            <End Role="tbUser" EntitySet="tbUser" />
-            <End Role="tbRequestNVQS" EntitySet="tbRequestNVQS" />
-          </AssociationSet>
           <AssociationSet Name="FK_tbStep_tbRequest" Association="Self.FK_tbStep_tbRequest">
             <End Role="tbRequest" EntitySet="tbRequest" />
             <End Role="tbStep" EntitySet="tbStep" />
@@ -230,6 +215,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_tbStepInstance_tbRequestInstance" Association="Self.FK_tbStepInstance_tbRequestInstance">
             <End Role="tbRequestInstance" EntitySet="tbRequestInstance" />
+            <End Role="tbStepInstance" EntitySet="tbStepInstance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbStepInstance_tbStep" Association="Self.FK_tbStepInstance_tbStep">
+            <End Role="tbStep" EntitySet="tbStep" />
             <End Role="tbStepInstance" EntitySet="tbStepInstance" />
           </AssociationSet>
           <AssociationSet Name="FK_tbStepInstance_tbUser" Association="Self.FK_tbStepInstance_tbUser">
@@ -249,22 +238,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="testModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="tbRequestNVQS">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="UserID" Type="Int32" />
-          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="StudentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="StudentID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="Int32" />
-          <NavigationProperty Name="tbUser" Relationship="testModel.FK_tbRequestNVQS_tbUser" FromRole="tbRequestNVQS" ToRole="tbUser" />
-        </EntityType>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tbRequestNVQS" EntityType="testModel.tbRequestNVQS" />
           <EntitySet Name="tbRequests" EntityType="testModel.tbRequest" />
           <EntitySet Name="tbRequestInstances" EntityType="testModel.tbRequestInstance" />
           <EntitySet Name="tbRoles" EntityType="testModel.tbRole" />
@@ -288,10 +262,6 @@
             <End Role="tbRequestInstance" EntitySet="tbRequestInstances" />
             <End Role="tbStepInstance" EntitySet="tbStepInstances" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbRequestNVQS_tbUser" Association="testModel.FK_tbRequestNVQS_tbUser">
-            <End Role="tbUser" EntitySet="tbUsers" />
-            <End Role="tbRequestNVQS" EntitySet="tbRequestNVQS" />
-          </AssociationSet>
           <AssociationSet Name="FK_tbStep_tbRole" Association="testModel.FK_tbStep_tbRole">
             <End Role="tbRole" EntitySet="tbRoles" />
             <End Role="tbStep" EntitySet="tbSteps" />
@@ -310,6 +280,11 @@
           </AssociationSet>
           <FunctionImport Name="sp_GetUserRole" ReturnType="Collection(testModel.sp_GetUserRole_Result)" />
           <FunctionImport Name="sp_GetRequestInstance" ReturnType="Collection(testModel.sp_GetRequestInstance_Result)" />
+          <AssociationSet Name="FK_tbStepInstance_tbStep" Association="testModel.FK_tbStepInstance_tbStep">
+            <End Role="tbStep" EntitySet="tbSteps" />
+            <End Role="tbStepInstance" EntitySet="tbStepInstances" />
+          </AssociationSet>
+          <FunctionImport Name="spGetStepInstanceDetails" ReturnType="Collection(testModel.spGetStepInstanceDetails_Result)" />
         </EntityContainer>
         <EntityType Name="tbRequest">
           <Key>
@@ -361,6 +336,7 @@
           <Property Name="StepIndex" Type="Int32" />
           <NavigationProperty Name="tbRequest" Relationship="testModel.FK_tbStep_tbRequest" FromRole="tbStep" ToRole="tbRequest" />
           <NavigationProperty Name="tbRole" Relationship="testModel.FK_tbStep_tbRole" FromRole="tbStep" ToRole="tbRole" />
+          <NavigationProperty Name="tbStepInstances" Relationship="testModel.FK_tbStepInstance_tbStep" FromRole="tbStep" ToRole="tbStepInstance" />
         </EntityType>
         <EntityType Name="tbStepInstance">
           <Key>
@@ -373,6 +349,9 @@
           <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tbRequestInstance" Relationship="testModel.FK_tbStepInstance_tbRequestInstance" FromRole="tbStepInstance" ToRole="tbRequestInstance" />
           <NavigationProperty Name="tbUser" Relationship="testModel.FK_tbStepInstance_tbUser" FromRole="tbStepInstance" ToRole="tbUser" />
+          <Property Name="StepID" Type="Int32" />
+          <Property Name="ResponseMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbStep" Relationship="testModel.FK_tbStepInstance_tbStep" FromRole="tbStepInstance" ToRole="tbStep" />
         </EntityType>
         <EntityType Name="tbUser">
           <Key>
@@ -385,7 +364,6 @@
           <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tbRequestInstances" Relationship="testModel.FK_tbRequestInstance_tbUser" FromRole="tbUser" ToRole="tbRequestInstance" />
-          <NavigationProperty Name="tbRequestNVQS" Relationship="testModel.FK_tbRequestNVQS_tbUser" FromRole="tbUser" ToRole="tbRequestNVQS" />
           <NavigationProperty Name="tbStepInstances" Relationship="testModel.FK_tbStepInstance_tbUser" FromRole="tbUser" ToRole="tbStepInstance" />
           <NavigationProperty Name="tbUserRoles" Relationship="testModel.FK_tbUserRole_tbUser" FromRole="tbUser" ToRole="tbUserRole" />
         </EntityType>
@@ -444,18 +422,6 @@
             </Principal>
             <Dependent Role="tbStepInstance">
               <PropertyRef Name="RequestInstanceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbRequestNVQS_tbUser">
-          <End Type="testModel.tbUser" Role="tbUser" Multiplicity="0..1" />
-          <End Type="testModel.tbRequestNVQS" Role="tbRequestNVQS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbUser">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbRequestNVQS">
-              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -527,26 +493,34 @@
           <Property Type="String" Name="Password" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="FullName" Nullable="true" MaxLength="100" />
         </ComplexType>
+        <Association Name="FK_tbStepInstance_tbStep">
+          <End Type="testModel.tbStep" Role="tbStep" Multiplicity="0..1" />
+          <End Type="testModel.tbStepInstance" Role="tbStepInstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbStep">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbStepInstance">
+              <PropertyRef Name="StepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="spGetStepInstanceDetails_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="ApproverID" Nullable="true" />
+          <Property Type="Int32" Name="RequestInstanceID" Nullable="true" />
+          <Property Type="String" Name="DefaultContent" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ResponseMessage" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="Int32" Name="StepIndex" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="testModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="tbRequestNVQS">
-            <EntityTypeMapping TypeName="testModel.tbRequestNVQS">
-              <MappingFragment StoreEntitySet="tbRequestNVQS">
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbRequests">
             <EntityTypeMapping TypeName="testModel.tbRequest">
               <MappingFragment StoreEntitySet="tbRequest">
@@ -596,6 +570,8 @@
           <EntitySetMapping Name="tbStepInstances">
             <EntityTypeMapping TypeName="testModel.tbStepInstance">
               <MappingFragment StoreEntitySet="tbStepInstance">
+                <ScalarProperty Name="ResponseMessage" ColumnName="ResponseMessage" />
+                <ScalarProperty Name="StepID" ColumnName="StepID" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="DefaultContent" ColumnName="DefaultContent" />
                 <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
@@ -650,6 +626,20 @@
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetStepInstanceDetails" FunctionName="testModel.Store.spGetStepInstanceDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="testModel.spGetStepInstanceDetails_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
+                <ScalarProperty Name="RequestInstanceID" ColumnName="RequestInstanceID" />
+                <ScalarProperty Name="DefaultContent" ColumnName="DefaultContent" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ResponseMessage" ColumnName="ResponseMessage" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StepIndex" ColumnName="StepIndex" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

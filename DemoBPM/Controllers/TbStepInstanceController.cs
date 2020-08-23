@@ -24,6 +24,15 @@ namespace DemoBPM.Controllers
             return SingleResult.Create(_db.tbStepInstances.Where(tbStepInstance => tbStepInstance.ID == key));
         }
 
+        [EnableQuery]
+        [HttpGet]
+        public IHttpActionResult GetStepInstanceDetails()
+        {
+            var result = _db.spGetStepInstanceDetails();
+
+            return Ok(result);
+        }
+
         public override async Task<IHttpActionResult> PostEntity(tbStepInstance se)
         {
             if (!ModelState.IsValid)

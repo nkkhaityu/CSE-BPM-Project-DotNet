@@ -27,7 +27,6 @@ namespace DemoBPM.Database
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tbRequestNVQS> tbRequestNVQS { get; set; }
         public virtual DbSet<tbRequest> tbRequests { get; set; }
         public virtual DbSet<tbRequestInstance> tbRequestInstances { get; set; }
         public virtual DbSet<tbRole> tbRoles { get; set; }
@@ -44,6 +43,11 @@ namespace DemoBPM.Database
         public virtual ObjectResult<sp_GetRequestInstance_Result> sp_GetRequestInstance()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetRequestInstance_Result>("sp_GetRequestInstance");
+        }
+    
+        public virtual ObjectResult<spGetStepInstanceDetails_Result> spGetStepInstanceDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetStepInstanceDetails_Result>("spGetStepInstanceDetails");
         }
     }
 }

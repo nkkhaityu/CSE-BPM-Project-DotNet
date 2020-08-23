@@ -158,7 +158,6 @@
     <Compile Include="Common\Security\SessionExtensions.cs" />
     <Compile Include="Controllers\TbRequestController.cs" />
     <Compile Include="Controllers\TbRequestInstanceController.cs" />
-    <Compile Include="Controllers\TbRequestNVQSController.cs" />
     <Compile Include="Controllers\TbRoleController.cs" />
     <Compile Include="Controllers\TbStepController.cs" />
     <Compile Include="Controllers\TbStepInstanceController.cs" />
@@ -178,6 +177,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Database\spGetStepInstanceDetails_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_GetRequestInstance_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>

@@ -35,13 +35,13 @@ namespace DemoBPM
 
             builder.EntitySet<tbRole>("tbRole");
             builder.EntitySet<tbRequest>("tbRequest");
-            builder.EntitySet<tbRequestInstance>("tbRequestInstance");
             builder.EntitySet<tbStep>("tbStep");
 
             builder.EntitySet<tbStepInstance>("tbStepInstance");
-            builder.EntityType<tbRequestInstance>().Collection.Function("GetRequestInstance").Returns<sp_GetRequestInstance_Result>();
+            builder.EntityType<tbStepInstance>().Collection.Function("GetStepInstanceDetails").Returns<spGetStepInstanceDetails_Result>();
 
-            builder.EntitySet<tbRequestNVQS>("tbRequestNVQS");  
+            builder.EntitySet<tbRequestInstance>("tbRequestInstance");
+            builder.EntityType<tbRequestInstance>().Collection.Function("GetRequestInstance").Returns<sp_GetRequestInstance_Result>();
 
             config.MapODataServiceRoute("odata", "odata", model: builder.GetEdmModel());
         }

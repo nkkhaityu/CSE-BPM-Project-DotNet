@@ -10,20 +10,16 @@
 namespace DemoBPM.Database
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class tbStepInstance : DemoBPM.Common.APISupport.SEObject
+    public partial class spGetStepInstanceDetails_Result
     {
         public int ID { get; set; }
-        public Nullable<int> RequestInstanceID { get; set; }
         public Nullable<int> ApproverID { get; set; }
+        public Nullable<int> RequestInstanceID { get; set; }
         public string DefaultContent { get; set; }
         public string Status { get; set; }
-        public Nullable<int> StepID { get; set; }
         public string ResponseMessage { get; set; }
-    
-        public virtual tbRequestInstance tbRequestInstance { get; set; }
-        public virtual tbUser tbUser { get; set; }
-        public virtual tbStep tbStep { get; set; }
+        public string Description { get; set; }
+        public Nullable<int> StepIndex { get; set; }
     }
 }

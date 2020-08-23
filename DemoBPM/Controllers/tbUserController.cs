@@ -4,6 +4,9 @@ using DemoBPM.Database;
 using Microsoft.AspNet.OData;
 using System;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -37,7 +40,7 @@ namespace DemoBPM.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IHttpActionResult Login(ODataActionParameters parameters)
+        public async Task<IHttpActionResult> Login(ODataActionParameters parameters)
         {
             if (!ModelState.IsValid)
             {
@@ -48,7 +51,7 @@ namespace DemoBPM.Controllers
             if (!(u is tbUser))
             {
                 return BadRequest();
-            }
+            }   
 
             tbUser user = u as tbUser;
 
@@ -65,7 +68,12 @@ namespace DemoBPM.Controllers
                 return BadRequest(ex.Message);
             }
 
-            return Ok();
+            // Return current user ID and role
+            var userID = AuthSession.Current.UserId;
+
+            var userRole = _db.tbUserRoles.Where(tbUserRole => tbUserRole.UserId == userID);
+
+            return Ok(userRole);
         }
 
         [HttpPost]
@@ -130,9 +138,9 @@ namespace DemoBPM.Controllers
         [HttpGet]
         public IHttpActionResult GetUserRole()
         {
-            var ret = _db.sp_GetUserRole();
+            var result = _db.sp_GetUserRole();
 
-            return Ok(ret);
+            return Ok(result);
         }
 
         protected override void Dispose(bool disposing)

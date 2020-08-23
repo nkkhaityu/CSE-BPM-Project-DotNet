@@ -14,6 +14,12 @@ namespace DemoBPM.Database
     
     public partial class tbStep : DemoBPM.Common.APISupport.SEObject
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbStep()
+        {
+            this.tbStepInstances = new HashSet<tbStepInstance>();
+        }
+    
         public int ID { get; set; }
         public Nullable<int> RequestID { get; set; }
         public string Description { get; set; }
@@ -22,5 +28,7 @@ namespace DemoBPM.Database
     
         public virtual tbRequest tbRequest { get; set; }
         public virtual tbRole tbRole { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbStepInstance> tbStepInstances { get; set; }
     }
 }
