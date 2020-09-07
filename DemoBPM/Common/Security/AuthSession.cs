@@ -20,9 +20,11 @@ namespace DemoBPM.Common.Security
         {
             try
             {
-                var _session = new AuthSession();
-                _session.UserId = int.Parse(SessionExtensions.Get(SessionExtensions.key_UserId));
-                _session.UserName = SessionExtensions.Get(SessionExtensions.key_UserName);
+                var _session = new AuthSession
+                {
+                    UserId = int.Parse(SessionExtensions.Get(SessionExtensions.key_UserId)),
+                    UserName = SessionExtensions.Get(SessionExtensions.key_UserName)
+                };
 
                 return _session;
             }

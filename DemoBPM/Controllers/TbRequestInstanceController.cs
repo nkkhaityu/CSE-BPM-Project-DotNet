@@ -1,4 +1,5 @@
 ﻿using DemoBPM.Common.APISupport;
+using DemoBPM.Common.Security;
 using DemoBPM.Database;
 using Microsoft.AspNet.OData;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Http;
 
 namespace DemoBPM.Controllers
 {
+    //[SEAuthorize]
     public class TbRequestInstanceController : TBBaseController<Entities, tbRequestInstance>
     {
         public TbRequestInstanceController()

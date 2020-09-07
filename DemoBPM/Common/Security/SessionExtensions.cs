@@ -10,8 +10,8 @@ namespace DemoBPM.Common.Security
         public static Dictionary<string, string> _session = new Dictionary<string, string>();
         public static void Set(string key, string value)
         {
-            if (!_session.ContainsKey(key))
-                _session.Add(key, value);
+            //if (!_session.ContainsKey(key))
+            _session[key] = value;
         }
 
         public static string Get(string key)

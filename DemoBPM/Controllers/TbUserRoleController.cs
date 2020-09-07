@@ -1,15 +1,15 @@
 ﻿using DemoBPM.Common.APISupport;
+using DemoBPM.Common.Security;
 using DemoBPM.Database;
 using Microsoft.AspNet.OData;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 namespace DemoBPM.Controllers
 {
+    //[SEAuthorize]
     public class TbUserRoleController : TBBaseController<Entities, tbUserRole>
     {
         public TbUserRoleController()
