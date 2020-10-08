@@ -11,7 +11,7 @@ namespace DemoBPM.Database
 {
     using System;
     
-    public partial class spGetStepInstanceDetails_Result
+    public partial class sp_GetStepInstanceDetails_Result
     {
         public int ID { get; set; }
         public Nullable<int> ApproverID { get; set; }
@@ -19,7 +19,11 @@ namespace DemoBPM.Database
         public string DefaultContent { get; set; }
         public string Status { get; set; }
         public string ResponseMessage { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> FinishedDate { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
         public Nullable<int> StepIndex { get; set; }
+        public Nullable<int> ApproverRoleID { get; set; }
     }
 }

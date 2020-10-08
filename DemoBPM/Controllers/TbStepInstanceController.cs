@@ -30,7 +30,7 @@ namespace DemoBPM.Controllers
         [HttpGet]
         public IHttpActionResult GetStepInstanceDetails()
         {
-            var result = _db.spGetStepInstanceDetails();
+            var result = _db.sp_GetStepInstanceDetails();
 
             return Ok(result);
         }

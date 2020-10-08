@@ -38,7 +38,7 @@ namespace DemoBPM
             builder.EntitySet<tbStep>("tbStep");
 
             builder.EntitySet<tbStepInstance>("tbStepInstance");
-            builder.EntityType<tbStepInstance>().Collection.Function("GetStepInstanceDetails").Returns<spGetStepInstanceDetails_Result>();
+            builder.EntityType<tbStepInstance>().Collection.Function("GetStepInstanceDetails").Returns<sp_GetStepInstanceDetails_Result>();
 
             builder.EntitySet<tbRequestInstance>("tbRequestInstance");
             builder.EntityType<tbRequestInstance>().Collection.Function("GetRequestInstance").Returns<sp_GetRequestInstance_Result>();

@@ -319,9 +319,7 @@ public class CodeStringGenerator
             Accessibility.ForType(entity),
             _code.SpaceAfter(_code.AbstractOption(entity)),
             _code.Escape(entity),
-            //_code.StringBefore(" : ", _typeMapper.GetTypeName(entity.BaseType))
-            " : DemoBPM.Common.APISupport.SEObject"
-            );
+            _code.StringBefore(" : ", _typeMapper.GetTypeName(entity.BaseType)));
     }
     
     public string EnumOpening(SimpleType enumType)

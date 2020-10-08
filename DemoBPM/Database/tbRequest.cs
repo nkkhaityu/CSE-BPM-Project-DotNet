@@ -19,6 +19,7 @@ namespace DemoBPM.Database
         {
             this.tbRequestInstances = new HashSet<tbRequestInstance>();
             this.tbSteps = new HashSet<tbStep>();
+            this.tbStepInputFields = new HashSet<tbStepInputField>();
         }
     
         public int ID { get; set; }
@@ -35,5 +36,7 @@ namespace DemoBPM.Database
         public virtual ICollection<tbRequestInstance> tbRequestInstances { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbStep> tbSteps { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbStepInputField> tbStepInputFields { get; set; }
     }
 }

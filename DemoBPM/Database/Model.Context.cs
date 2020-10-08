@@ -27,27 +27,35 @@ namespace DemoBPM.Database
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<tbInputFieldType> tbInputFieldTypes { get; set; }
         public virtual DbSet<tbRequest> tbRequests { get; set; }
         public virtual DbSet<tbRequestInstance> tbRequestInstances { get; set; }
         public virtual DbSet<tbRole> tbRoles { get; set; }
         public virtual DbSet<tbStep> tbSteps { get; set; }
+        public virtual DbSet<tbStepInputField> tbStepInputFields { get; set; }
+        public virtual DbSet<tbStepInputFieldInstance> tbStepInputFieldInstances { get; set; }
         public virtual DbSet<tbStepInstance> tbStepInstances { get; set; }
         public virtual DbSet<tbUser> tbUsers { get; set; }
         public virtual DbSet<tbUserRole> tbUserRoles { get; set; }
-    
-        public virtual ObjectResult<sp_GetUserRole_Result> sp_GetUserRole()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUserRole_Result>("sp_GetUserRole");
-        }
     
         public virtual ObjectResult<sp_GetRequestInstance_Result> sp_GetRequestInstance()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetRequestInstance_Result>("sp_GetRequestInstance");
         }
     
-        public virtual ObjectResult<spGetStepInstanceDetails_Result> spGetStepInstanceDetails()
+        public virtual ObjectResult<sp_GetStepInputFieldInstance_Result> sp_GetStepInputFieldInstance()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetStepInstanceDetails_Result>("spGetStepInstanceDetails");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetStepInputFieldInstance_Result>("sp_GetStepInputFieldInstance");
+        }
+    
+        public virtual ObjectResult<sp_GetStepInstanceDetails_Result> sp_GetStepInstanceDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetStepInstanceDetails_Result>("sp_GetStepInstanceDetails");
+        }
+    
+        public virtual ObjectResult<sp_GetUserRole_Result> sp_GetUserRole()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUserRole_Result>("sp_GetUserRole");
         }
     }
 }

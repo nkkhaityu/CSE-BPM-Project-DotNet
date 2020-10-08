@@ -4,23 +4,34 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d57c455e6a9e433baedf34ff03fc2600" Name="Diagram1" ZoomLevel="64">
-        <EntityTypeShape EntityType="testModel.tbRequest" Width="1.5" PointX="6.625" PointY="4.75" />
-        <EntityTypeShape EntityType="testModel.tbRequestInstance" Width="1.5" PointX="3.875" PointY="5.375" />
-        <EntityTypeShape EntityType="testModel.tbRole" Width="1.5" PointX="3.875" PointY="9.25" />
-        <EntityTypeShape EntityType="testModel.tbStep" Width="1.5" PointX="9.625" PointY="5.75" />
-        <EntityTypeShape EntityType="testModel.tbStepInstance" Width="1.5" PointX="3.875" PointY="1.75" />
-        <EntityTypeShape EntityType="testModel.tbUser" Width="1.5" PointX="0.5" PointY="4.5" />
-        <EntityTypeShape EntityType="testModel.tbUserRole" Width="1.5" PointX="0.75" PointY="9" />
-        <AssociationConnector Association="testModel.FK_tbRequestInstance_tbRequest" />
-        <AssociationConnector Association="testModel.FK_tbStep_tbRequest" />
-        <AssociationConnector Association="testModel.FK_tbRequestInstance_tbUser" />
-        <AssociationConnector Association="testModel.FK_tbStepInstance_tbRequestInstance" />
-        <AssociationConnector Association="testModel.FK_tbStep_tbRole" />
-        <AssociationConnector Association="testModel.FK_tbUserRole_tbRole" />
-        <AssociationConnector Association="testModel.FK_tbStepInstance_tbUser" />
-        <AssociationConnector Association="testModel.FK_tbUserRole_tbUser" />
-        <AssociationConnector Association="testModel.FK_tbStepInstance_tbStep" />
+      <Diagram DiagramId="b93b84522d754f7dafc789b1176b9c00" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbInputFieldType" Width="1.5" PointX="6.25" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbRequest" Width="1.5" PointX="3.625" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbRequestInstance" Width="1.5" PointX="9.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbRole" Width="1.5" PointX="1.125" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbStep" Width="1.5" PointX="1.125" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbStepInputField" Width="1.5" PointX="3.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbStepInputFieldInstance" Width="1.5" PointX="9.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbStepInstance" Width="1.5" PointX="6.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbUser" Width="1.5" PointX="6.125" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbUserRole" Width="1.5" PointX="3.5" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbStepInputField_tbInputFieldType" ManuallyRouted="false" />
+        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbRequestInstance_tbRequest" ManuallyRouted="false" />
+        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbStep_tbRequest" ManuallyRouted="false" />
+        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbStepInputField_tbRequest" ManuallyRouted="false" />
+        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbRequestInstance_tbUser" ManuallyRouted="false" />
+        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbStepInputFieldInstance_tbRequestInstance" ManuallyRouted="false" />
+        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbStepInstance_tbRequestInstance" ManuallyRouted="false" />
+        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbStep_tbRole" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbUserRole_tbRole" ManuallyRouted="false" />
+        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbStepInputField_tbStep" ManuallyRouted="false" />
+        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbStepInstance_tbStep" ManuallyRouted="false" />
+        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbStepInputFieldInstance_tbStepInputField" ManuallyRouted="false" />
+        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbStepInputFieldInstance_tbStepInstance" ManuallyRouted="false" />
+        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbStepInstance_tbUser" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbUserRole_tbUser" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
