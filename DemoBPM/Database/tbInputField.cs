@@ -12,12 +12,12 @@ namespace DemoBPM.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class tbStepInputField : DemoBPM.Common.APISupport.SEObject
+    public partial class tbInputField : DemoBPM.Common.APISupport.SEObject
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbStepInputField()
+        public tbInputField()
         {
-            this.tbStepInputFieldInstances = new HashSet<tbStepInputFieldInstance>();
+            this.tbInputFieldInstances = new HashSet<tbInputFieldInstance>();
         }
     
         public int ID { get; set; }
@@ -26,10 +26,10 @@ namespace DemoBPM.Database
         public Nullable<int> InputFieldTypeID { get; set; }
         public string Title { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbInputFieldInstance> tbInputFieldInstances { get; set; }
         public virtual tbInputFieldType tbInputFieldType { get; set; }
         public virtual tbRequest tbRequest { get; set; }
         public virtual tbStep tbStep { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbStepInputFieldInstance> tbStepInputFieldInstances { get; set; }
     }
 }

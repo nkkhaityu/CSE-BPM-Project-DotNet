@@ -17,7 +17,7 @@ namespace DemoBPM.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbStepInstance()
         {
-            this.tbStepInputFieldInstances = new HashSet<tbStepInputFieldInstance>();
+            this.tbInputFieldInstances = new HashSet<tbInputFieldInstance>();
         }
     
         public int ID { get; set; }
@@ -30,10 +30,10 @@ namespace DemoBPM.Database
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> FinishedDate { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbInputFieldInstance> tbInputFieldInstances { get; set; }
         public virtual tbRequestInstance tbRequestInstance { get; set; }
         public virtual tbStep tbStep { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbStepInputFieldInstance> tbStepInputFieldInstances { get; set; }
         public virtual tbUser tbUser { get; set; }
     }
 }

@@ -111,7 +111,14 @@ namespace DemoBPM.Controllers
                 return BadRequest(ModelState);
             }
 
-            _db.tbUsers.Add(se);
+            var user = se as tbUser;
+            if (!(user is tbUser))
+            {
+                return BadRequest();
+            }
+            user.Password = AuthSuport.GetMD5(user.Password);
+
+            _db.tbUsers.Add(user);
             await _db.SaveChangesAsync();
 
             return Ok(se);

@@ -156,6 +156,8 @@
     <Compile Include="Common\Security\AuthSupport.cs" />
     <Compile Include="Common\Security\SEAuthorizeAttribute.cs" />
     <Compile Include="Common\Security\SessionExtensions.cs" />
+    <Compile Include="Controllers\TbInputFieldController.cs" />
+    <Compile Include="Controllers\TbInputFieldInstanceController.cs" />
     <Compile Include="Controllers\TbRequestController.cs" />
     <Compile Include="Controllers\TbRequestInstanceController.cs" />
     <Compile Include="Controllers\TbRoleController.cs" />
@@ -178,16 +180,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Database\sp_GetRequestInstance_Result.cs">
+    <Compile Include="Database\sp_GetInputFieldInstance_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\sp_GetStepInputFieldInstance_Result.cs">
+    <Compile Include="Database\sp_GetRequestInstance_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_GetStepInstanceDetails_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_GetUserRole_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\tbInputField.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\tbInputFieldInstance.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\tbInputFieldType.cs">
@@ -203,12 +211,6 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\tbStep.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Database\tbStepInputField.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Database\tbStepInputFieldInstance.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\tbStepInstance.cs">

@@ -17,7 +17,7 @@ namespace DemoBPM.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbStep()
         {
-            this.tbStepInputFields = new HashSet<tbStepInputField>();
+            this.tbInputFields = new HashSet<tbInputField>();
             this.tbStepInstances = new HashSet<tbStepInstance>();
         }
     
@@ -28,10 +28,10 @@ namespace DemoBPM.Database
         public Nullable<int> ApproverRoleID { get; set; }
         public Nullable<int> StepIndex { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbInputField> tbInputFields { get; set; }
         public virtual tbRequest tbRequest { get; set; }
         public virtual tbRole tbRole { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbStepInputField> tbStepInputFields { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbStepInstance> tbStepInstances { get; set; }
     }

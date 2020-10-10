@@ -27,25 +27,25 @@ namespace DemoBPM.Database
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<tbInputField> tbInputFields { get; set; }
+        public virtual DbSet<tbInputFieldInstance> tbInputFieldInstances { get; set; }
         public virtual DbSet<tbInputFieldType> tbInputFieldTypes { get; set; }
         public virtual DbSet<tbRequest> tbRequests { get; set; }
         public virtual DbSet<tbRequestInstance> tbRequestInstances { get; set; }
         public virtual DbSet<tbRole> tbRoles { get; set; }
         public virtual DbSet<tbStep> tbSteps { get; set; }
-        public virtual DbSet<tbStepInputField> tbStepInputFields { get; set; }
-        public virtual DbSet<tbStepInputFieldInstance> tbStepInputFieldInstances { get; set; }
         public virtual DbSet<tbStepInstance> tbStepInstances { get; set; }
         public virtual DbSet<tbUser> tbUsers { get; set; }
         public virtual DbSet<tbUserRole> tbUserRoles { get; set; }
     
+        public virtual ObjectResult<sp_GetInputFieldInstance_Result> sp_GetInputFieldInstance()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetInputFieldInstance_Result>("sp_GetInputFieldInstance");
+        }
+    
         public virtual ObjectResult<sp_GetRequestInstance_Result> sp_GetRequestInstance()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetRequestInstance_Result>("sp_GetRequestInstance");
-        }
-    
-        public virtual ObjectResult<sp_GetStepInputFieldInstance_Result> sp_GetStepInputFieldInstance()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetStepInputFieldInstance_Result>("sp_GetStepInputFieldInstance");
         }
     
         public virtual ObjectResult<sp_GetStepInstanceDetails_Result> sp_GetStepInstanceDetails()

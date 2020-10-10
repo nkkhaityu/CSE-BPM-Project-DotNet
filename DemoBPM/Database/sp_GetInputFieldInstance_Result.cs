@@ -11,10 +11,10 @@ namespace DemoBPM.Database
 {
     using System;
     
-    public partial class sp_GetStepInputFieldInstance_Result
+    public partial class sp_GetInputFieldInstance_Result
     {
         public int ID { get; set; }
-        public Nullable<int> StepInputFieldID { get; set; }
+        public Nullable<int> InputFieldID { get; set; }
         public Nullable<int> StepInstanceID { get; set; }
         public Nullable<int> RequestInstanceID { get; set; }
         public byte[] Content { get; set; }

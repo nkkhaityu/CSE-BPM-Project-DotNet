@@ -12,16 +12,16 @@ namespace DemoBPM.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class tbStepInputFieldInstance : DemoBPM.Common.APISupport.SEObject
+    public partial class tbInputFieldInstance : DemoBPM.Common.APISupport.SEObject
     {
         public int ID { get; set; }
         public Nullable<int> StepInstanceID { get; set; }
         public byte[] Content { get; set; }
         public Nullable<int> RequestInstanceID { get; set; }
-        public Nullable<int> StepInputFieldID { get; set; }
+        public Nullable<int> InputFieldID { get; set; }
     
+        public virtual tbInputField tbInputField { get; set; }
         public virtual tbRequestInstance tbRequestInstance { get; set; }
-        public virtual tbStepInputField tbStepInputField { get; set; }
         public virtual tbStepInstance tbStepInstance { get; set; }
     }
 }

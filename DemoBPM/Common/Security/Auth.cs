@@ -9,7 +9,7 @@ namespace DemoBPM.Common.Security
         {
             using (Entities _db = new Entities())
             {
-                var hashedPwd = password;// AuthSuport.GetMD5(password);
+                var hashedPwd = AuthSuport.GetMD5(password);
                 var user = _db.tbUsers.Where(x => x.UserName.Trim() == userName && x.Password.Trim() == hashedPwd).FirstOrDefault();
                 if (user == null)
                     return "Invalid UserName or Password.";
