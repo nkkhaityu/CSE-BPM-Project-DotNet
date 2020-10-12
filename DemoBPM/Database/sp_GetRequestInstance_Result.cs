@@ -21,6 +21,8 @@ namespace DemoBPM.Database
         public string Status { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> FinishedDate { get; set; }
+        public string RequestName { get; set; }
+        public string RequestDescription { get; set; }
         public Nullable<int> NumOfSteps { get; set; }
         public string UserName { get; set; }
         public string Mail { get; set; }
