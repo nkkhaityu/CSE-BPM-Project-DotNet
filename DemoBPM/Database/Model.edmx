@@ -21,9 +21,10 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StepInstanceID" Type="int" />
-          <Property Name="Content" Type="varbinary(max)" />
+          <Property Name="FileContent" Type="varbinary(max)" />
           <Property Name="RequestInstanceID" Type="int" />
           <Property Name="InputFieldID" Type="int" />
+          <Property Name="TextAnswer" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbInputFieldType">
           <Key>
@@ -110,6 +111,54 @@
           <Property Name="UserId" Type="int" />
           <Property Name="RoleId" Type="int" />
         </EntityType>
+        <Association Name="FK_tbInputField_tbInputFieldType">
+          <End Role="tbInputFieldType" Type="Self.tbInputFieldType" Multiplicity="0..1" />
+          <End Role="tbInputField" Type="Self.tbInputField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbInputFieldType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbInputField">
+              <PropertyRef Name="InputFieldTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbInputField_tbRequest">
+          <End Role="tbRequest" Type="Self.tbRequest" Multiplicity="0..1" />
+          <End Role="tbInputField" Type="Self.tbInputField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbRequest">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbInputField">
+              <PropertyRef Name="RequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbInputField_tbStep">
+          <End Role="tbStep" Type="Self.tbStep" Multiplicity="0..1" />
+          <End Role="tbInputField" Type="Self.tbInputField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbStep">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbInputField">
+              <PropertyRef Name="StepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbInputFieldInstance_tbInputField">
+          <End Role="tbInputField" Type="Self.tbInputField" Multiplicity="0..1" />
+          <End Role="tbInputFieldInstance" Type="Self.tbInputFieldInstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbInputField">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbInputFieldInstance">
+              <PropertyRef Name="InputFieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbInputFieldInstance_tbRequestInstance">
           <End Role="tbRequestInstance" Type="Self.tbRequestInstance" Multiplicity="0..1" />
           <End Role="tbInputFieldInstance" Type="Self.tbInputFieldInstance" Multiplicity="*" />
@@ -119,18 +168,6 @@
             </Principal>
             <Dependent Role="tbInputFieldInstance">
               <PropertyRef Name="RequestInstanceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbInputFieldInstance_tbStepInputField">
-          <End Role="tbInputField" Type="Self.tbInputField" Multiplicity="0..1" />
-          <End Role="tbInputFieldInstance" Type="Self.tbInputFieldInstance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbInputField">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbInputFieldInstance">
-              <PropertyRef Name="InputFieldID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -191,42 +228,6 @@
             </Principal>
             <Dependent Role="tbStep">
               <PropertyRef Name="ApproverRoleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbStepInputField_tbInputFieldType">
-          <End Role="tbInputFieldType" Type="Self.tbInputFieldType" Multiplicity="0..1" />
-          <End Role="tbInputField" Type="Self.tbInputField" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbInputFieldType">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbInputField">
-              <PropertyRef Name="InputFieldTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbStepInputField_tbRequest">
-          <End Role="tbRequest" Type="Self.tbRequest" Multiplicity="0..1" />
-          <End Role="tbInputField" Type="Self.tbInputField" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbRequest">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbInputField">
-              <PropertyRef Name="RequestID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbStepInputField_tbStep">
-          <End Role="tbStep" Type="Self.tbStep" Multiplicity="0..1" />
-          <End Role="tbInputField" Type="Self.tbInputField" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbStep">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbInputField">
-              <PropertyRef Name="StepID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -305,12 +306,24 @@
           <EntitySet Name="tbStepInstance" EntityType="Self.tbStepInstance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbUser" EntityType="Self.tbUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbUserRole" EntityType="Self.tbUserRole" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_tbInputFieldInstance_tbRequestInstance" Association="Self.FK_tbInputFieldInstance_tbRequestInstance">
-            <End Role="tbRequestInstance" EntitySet="tbRequestInstance" />
+          <AssociationSet Name="FK_tbInputField_tbInputFieldType" Association="Self.FK_tbInputField_tbInputFieldType">
+            <End Role="tbInputFieldType" EntitySet="tbInputFieldType" />
+            <End Role="tbInputField" EntitySet="tbInputField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbInputField_tbRequest" Association="Self.FK_tbInputField_tbRequest">
+            <End Role="tbRequest" EntitySet="tbRequest" />
+            <End Role="tbInputField" EntitySet="tbInputField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbInputField_tbStep" Association="Self.FK_tbInputField_tbStep">
+            <End Role="tbStep" EntitySet="tbStep" />
+            <End Role="tbInputField" EntitySet="tbInputField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbInputFieldInstance_tbInputField" Association="Self.FK_tbInputFieldInstance_tbInputField">
+            <End Role="tbInputField" EntitySet="tbInputField" />
             <End Role="tbInputFieldInstance" EntitySet="tbInputFieldInstance" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbInputFieldInstance_tbStepInputField" Association="Self.FK_tbInputFieldInstance_tbStepInputField">
-            <End Role="tbInputField" EntitySet="tbInputField" />
+          <AssociationSet Name="FK_tbInputFieldInstance_tbRequestInstance" Association="Self.FK_tbInputFieldInstance_tbRequestInstance">
+            <End Role="tbRequestInstance" EntitySet="tbRequestInstance" />
             <End Role="tbInputFieldInstance" EntitySet="tbInputFieldInstance" />
           </AssociationSet>
           <AssociationSet Name="FK_tbInputFieldInstance_tbStepInstance" Association="Self.FK_tbInputFieldInstance_tbStepInstance">
@@ -332,18 +345,6 @@
           <AssociationSet Name="FK_tbStep_tbRole" Association="Self.FK_tbStep_tbRole">
             <End Role="tbRole" EntitySet="tbRole" />
             <End Role="tbStep" EntitySet="tbStep" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbStepInputField_tbInputFieldType" Association="Self.FK_tbStepInputField_tbInputFieldType">
-            <End Role="tbInputFieldType" EntitySet="tbInputFieldType" />
-            <End Role="tbInputField" EntitySet="tbInputField" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbStepInputField_tbRequest" Association="Self.FK_tbStepInputField_tbRequest">
-            <End Role="tbRequest" EntitySet="tbRequest" />
-            <End Role="tbInputField" EntitySet="tbInputField" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbStepInputField_tbStep" Association="Self.FK_tbStepInputField_tbStep">
-            <End Role="tbStep" EntitySet="tbStep" />
-            <End Role="tbInputField" EntitySet="tbInputField" />
           </AssociationSet>
           <AssociationSet Name="FK_tbStepInstance_tbRequestInstance" Association="Self.FK_tbStepInstance_tbRequestInstance">
             <End Role="tbRequestInstance" EntitySet="tbRequestInstance" />
@@ -380,10 +381,10 @@
           <Property Name="RequestID" Type="Int32" />
           <Property Name="InputFieldTypeID" Type="Int32" />
           <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tbInputFieldInstances" Relationship="Self.FK_tbInputFieldInstance_tbStepInputField" FromRole="tbInputField" ToRole="tbInputFieldInstance" />
-          <NavigationProperty Name="tbInputFieldType" Relationship="Self.FK_tbStepInputField_tbInputFieldType" FromRole="tbInputField" ToRole="tbInputFieldType" />
-          <NavigationProperty Name="tbRequest" Relationship="Self.FK_tbStepInputField_tbRequest" FromRole="tbInputField" ToRole="tbRequest" />
-          <NavigationProperty Name="tbStep" Relationship="Self.FK_tbStepInputField_tbStep" FromRole="tbInputField" ToRole="tbStep" />
+          <NavigationProperty Name="tbInputFieldType" Relationship="Self.FK_tbInputField_tbInputFieldType" FromRole="tbInputField" ToRole="tbInputFieldType" />
+          <NavigationProperty Name="tbRequest" Relationship="Self.FK_tbInputField_tbRequest" FromRole="tbInputField" ToRole="tbRequest" />
+          <NavigationProperty Name="tbStep" Relationship="Self.FK_tbInputField_tbStep" FromRole="tbInputField" ToRole="tbStep" />
+          <NavigationProperty Name="tbInputFieldInstances" Relationship="Self.FK_tbInputFieldInstance_tbInputField" FromRole="tbInputField" ToRole="tbInputFieldInstance" />
         </EntityType>
         <EntityType Name="tbInputFieldInstance">
           <Key>
@@ -391,10 +392,11 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StepInstanceID" Type="Int32" />
-          <Property Name="Content" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FileContent" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="RequestInstanceID" Type="Int32" />
           <Property Name="InputFieldID" Type="Int32" />
-          <NavigationProperty Name="tbInputField" Relationship="Self.FK_tbInputFieldInstance_tbStepInputField" FromRole="tbInputFieldInstance" ToRole="tbInputField" />
+          <Property Name="TextAnswer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbInputField" Relationship="Self.FK_tbInputFieldInstance_tbInputField" FromRole="tbInputFieldInstance" ToRole="tbInputField" />
           <NavigationProperty Name="tbRequestInstance" Relationship="Self.FK_tbInputFieldInstance_tbRequestInstance" FromRole="tbInputFieldInstance" ToRole="tbRequestInstance" />
           <NavigationProperty Name="tbStepInstance" Relationship="Self.FK_tbInputFieldInstance_tbStepInstance" FromRole="tbInputFieldInstance" ToRole="tbStepInstance" />
         </EntityType>
@@ -404,7 +406,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tbInputFields" Relationship="Self.FK_tbStepInputField_tbInputFieldType" FromRole="tbInputFieldType" ToRole="tbInputField" />
+          <NavigationProperty Name="tbInputFields" Relationship="Self.FK_tbInputField_tbInputFieldType" FromRole="tbInputFieldType" ToRole="tbInputField" />
         </EntityType>
         <EntityType Name="tbRequest">
           <Key>
@@ -419,7 +421,7 @@
           <Property Name="StartDate" Type="DateTime" Precision="3" />
           <Property Name="DueDate" Type="DateTime" Precision="3" />
           <Property Name="NumOfSteps" Type="Int32" />
-          <NavigationProperty Name="tbInputFields" Relationship="Self.FK_tbStepInputField_tbRequest" FromRole="tbRequest" ToRole="tbInputField" />
+          <NavigationProperty Name="tbInputFields" Relationship="Self.FK_tbInputField_tbRequest" FromRole="tbRequest" ToRole="tbInputField" />
           <NavigationProperty Name="tbRequestInstances" Relationship="Self.FK_tbRequestInstance_tbRequest" FromRole="tbRequest" ToRole="tbRequestInstance" />
           <NavigationProperty Name="tbSteps" Relationship="Self.FK_tbStep_tbRequest" FromRole="tbRequest" ToRole="tbStep" />
         </EntityType>
@@ -459,7 +461,7 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ApproverRoleID" Type="Int32" />
           <Property Name="StepIndex" Type="Int32" />
-          <NavigationProperty Name="tbInputFields" Relationship="Self.FK_tbStepInputField_tbStep" FromRole="tbStep" ToRole="tbInputField" />
+          <NavigationProperty Name="tbInputFields" Relationship="Self.FK_tbInputField_tbStep" FromRole="tbStep" ToRole="tbInputField" />
           <NavigationProperty Name="tbRequest" Relationship="Self.FK_tbStep_tbRequest" FromRole="tbStep" ToRole="tbRequest" />
           <NavigationProperty Name="tbRole" Relationship="Self.FK_tbStep_tbRole" FromRole="tbStep" ToRole="tbRole" />
           <NavigationProperty Name="tbStepInstances" Relationship="Self.FK_tbStepInstance_tbStep" FromRole="tbStep" ToRole="tbStepInstance" />
@@ -506,19 +508,7 @@
           <NavigationProperty Name="tbRole" Relationship="Self.FK_tbUserRole_tbRole" FromRole="tbUserRole" ToRole="tbRole" />
           <NavigationProperty Name="tbUser" Relationship="Self.FK_tbUserRole_tbUser" FromRole="tbUserRole" ToRole="tbUser" />
         </EntityType>
-        <Association Name="FK_tbInputFieldInstance_tbStepInputField">
-          <End Role="tbInputField" Type="Self.tbInputField" Multiplicity="0..1" />
-          <End Role="tbInputFieldInstance" Type="Self.tbInputFieldInstance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbInputField">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbInputFieldInstance">
-              <PropertyRef Name="InputFieldID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbStepInputField_tbInputFieldType">
+        <Association Name="FK_tbInputField_tbInputFieldType">
           <End Role="tbInputFieldType" Type="Self.tbInputFieldType" Multiplicity="0..1" />
           <End Role="tbInputField" Type="Self.tbInputField" Multiplicity="*" />
           <ReferentialConstraint>
@@ -530,7 +520,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbStepInputField_tbRequest">
+        <Association Name="FK_tbInputField_tbRequest">
           <End Role="tbRequest" Type="Self.tbRequest" Multiplicity="0..1" />
           <End Role="tbInputField" Type="Self.tbInputField" Multiplicity="*" />
           <ReferentialConstraint>
@@ -542,7 +532,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbStepInputField_tbStep">
+        <Association Name="FK_tbInputField_tbStep">
           <End Role="tbStep" Type="Self.tbStep" Multiplicity="0..1" />
           <End Role="tbInputField" Type="Self.tbInputField" Multiplicity="*" />
           <ReferentialConstraint>
@@ -551,6 +541,18 @@
             </Principal>
             <Dependent Role="tbInputField">
               <PropertyRef Name="StepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbInputFieldInstance_tbInputField">
+          <End Role="tbInputField" Type="Self.tbInputField" Multiplicity="0..1" />
+          <End Role="tbInputFieldInstance" Type="Self.tbInputFieldInstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbInputField">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbInputFieldInstance">
+              <PropertyRef Name="InputFieldID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -697,21 +699,21 @@
           <EntitySet Name="tbStepInstances" EntityType="Self.tbStepInstance" />
           <EntitySet Name="tbUsers" EntityType="Self.tbUser" />
           <EntitySet Name="tbUserRoles" EntityType="Self.tbUserRole" />
-          <AssociationSet Name="FK_tbInputFieldInstance_tbStepInputField" Association="Self.FK_tbInputFieldInstance_tbStepInputField">
-            <End Role="tbInputField" EntitySet="tbInputFields" />
-            <End Role="tbInputFieldInstance" EntitySet="tbInputFieldInstances" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbStepInputField_tbInputFieldType" Association="Self.FK_tbStepInputField_tbInputFieldType">
+          <AssociationSet Name="FK_tbInputField_tbInputFieldType" Association="Self.FK_tbInputField_tbInputFieldType">
             <End Role="tbInputFieldType" EntitySet="tbInputFieldTypes" />
             <End Role="tbInputField" EntitySet="tbInputFields" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbStepInputField_tbRequest" Association="Self.FK_tbStepInputField_tbRequest">
+          <AssociationSet Name="FK_tbInputField_tbRequest" Association="Self.FK_tbInputField_tbRequest">
             <End Role="tbRequest" EntitySet="tbRequests" />
             <End Role="tbInputField" EntitySet="tbInputFields" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbStepInputField_tbStep" Association="Self.FK_tbStepInputField_tbStep">
+          <AssociationSet Name="FK_tbInputField_tbStep" Association="Self.FK_tbInputField_tbStep">
             <End Role="tbStep" EntitySet="tbSteps" />
             <End Role="tbInputField" EntitySet="tbInputFields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbInputFieldInstance_tbInputField" Association="Self.FK_tbInputFieldInstance_tbInputField">
+            <End Role="tbInputField" EntitySet="tbInputFields" />
+            <End Role="tbInputFieldInstance" EntitySet="tbInputFieldInstances" />
           </AssociationSet>
           <AssociationSet Name="FK_tbInputFieldInstance_tbRequestInstance" Association="Self.FK_tbInputFieldInstance_tbRequestInstance">
             <End Role="tbRequestInstance" EntitySet="tbRequestInstances" />
@@ -767,7 +769,8 @@
           <Property Type="Int32" Name="InputFieldID" Nullable="true" />
           <Property Type="Int32" Name="StepInstanceID" Nullable="true" />
           <Property Type="Int32" Name="RequestInstanceID" Nullable="true" />
-          <Property Type="Binary" Name="Content" Nullable="true" />
+          <Property Type="Binary" Name="FileContent" Nullable="true" />
+          <Property Type="String" Name="TextAnswer" Nullable="true" />
           <Property Type="Int32" Name="InputFieldTypeID" Nullable="true" />
           <Property Type="String" Name="Title" Nullable="true" />
         </ComplexType>
@@ -784,7 +787,6 @@
           <Property Type="String" Name="UserName" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="Mail" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="Phone" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Password" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="FullName" Nullable="true" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="sp_GetStepInstanceDetails_Result">
@@ -829,9 +831,10 @@
               <MappingFragment StoreEntitySet="tbInputFieldInstance">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="StepInstanceID" ColumnName="StepInstanceID" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="FileContent" ColumnName="FileContent" />
                 <ScalarProperty Name="RequestInstanceID" ColumnName="RequestInstanceID" />
                 <ScalarProperty Name="InputFieldID" ColumnName="InputFieldID" />
+                <ScalarProperty Name="TextAnswer" ColumnName="TextAnswer" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -935,7 +938,8 @@
                 <ScalarProperty Name="InputFieldID" ColumnName="InputFieldID" />
                 <ScalarProperty Name="StepInstanceID" ColumnName="StepInstanceID" />
                 <ScalarProperty Name="RequestInstanceID" ColumnName="RequestInstanceID" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="FileContent" ColumnName="FileContent" />
+                <ScalarProperty Name="TextAnswer" ColumnName="TextAnswer" />
                 <ScalarProperty Name="InputFieldTypeID" ColumnName="InputFieldTypeID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
               </ComplexTypeMapping>
@@ -956,7 +960,6 @@
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Mail" ColumnName="Mail" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
               </ComplexTypeMapping>
             </ResultMapping>

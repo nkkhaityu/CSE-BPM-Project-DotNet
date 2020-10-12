@@ -16,9 +16,10 @@ namespace DemoBPM.Database
     {
         public int ID { get; set; }
         public Nullable<int> StepInstanceID { get; set; }
-        public byte[] Content { get; set; }
+        public byte[] FileContent { get; set; }
         public Nullable<int> RequestInstanceID { get; set; }
         public Nullable<int> InputFieldID { get; set; }
+        public string TextAnswer { get; set; }
     
         public virtual tbInputField tbInputField { get; set; }
         public virtual tbRequestInstance tbRequestInstance { get; set; }

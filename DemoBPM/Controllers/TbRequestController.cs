@@ -36,7 +36,7 @@ namespace DemoBPM.Controllers
             _db.tbRequests.Add(se);
             await _db.SaveChangesAsync();
 
-            return Ok();
+            return Ok(se);
         }
 
         public override async Task<IHttpActionResult> PatchEntity([FromODataUri] int key, Delta<tbRequest> patch)

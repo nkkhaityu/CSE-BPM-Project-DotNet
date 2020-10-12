@@ -26,10 +26,10 @@ namespace DemoBPM.Database
         public Nullable<int> InputFieldTypeID { get; set; }
         public string Title { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbInputFieldInstance> tbInputFieldInstances { get; set; }
         public virtual tbInputFieldType tbInputFieldType { get; set; }
         public virtual tbRequest tbRequest { get; set; }
         public virtual tbStep tbStep { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbInputFieldInstance> tbInputFieldInstances { get; set; }
     }
 }

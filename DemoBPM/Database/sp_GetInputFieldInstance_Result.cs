@@ -17,7 +17,8 @@ namespace DemoBPM.Database
         public Nullable<int> InputFieldID { get; set; }
         public Nullable<int> StepInstanceID { get; set; }
         public Nullable<int> RequestInstanceID { get; set; }
-        public byte[] Content { get; set; }
+        public byte[] FileContent { get; set; }
+        public string TextAnswer { get; set; }
         public Nullable<int> InputFieldTypeID { get; set; }
         public string Title { get; set; }
     }

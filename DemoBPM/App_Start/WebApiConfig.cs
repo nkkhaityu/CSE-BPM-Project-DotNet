@@ -43,6 +43,11 @@ namespace DemoBPM
             builder.EntitySet<tbRequestInstance>("tbRequestInstance");
             builder.EntityType<tbRequestInstance>().Collection.Function("GetRequestInstance").Returns<sp_GetRequestInstance_Result>();
 
+            builder.EntitySet<tbInputField>("tbInputField");
+
+            builder.EntitySet<tbInputFieldInstance>("tbInputFieldInstance");
+            builder.EntityType<tbInputFieldInstance>().Collection.Function("GetInputFieldInstance").Returns<sp_GetInputFieldInstance_Result>();
+
             config.MapODataServiceRoute("odata", "odata", model: builder.GetEdmModel());
         }
     }

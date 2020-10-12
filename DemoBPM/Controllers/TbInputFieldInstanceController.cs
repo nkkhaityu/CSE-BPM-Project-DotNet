@@ -23,6 +23,15 @@ namespace DemoBPM.Controllers
             return _db.tbInputFieldInstances.AsQueryable();
         }
 
+        [EnableQuery]
+        [HttpGet]
+        public IHttpActionResult GetInputFieldInstance()
+        {
+            var ret = _db.sp_GetInputFieldInstance();
+
+            return Ok(ret);
+        }
+
         public override SingleResult<tbInputFieldInstance> Get([FromODataUri] int key)
         {
             return SingleResult.Create(_db.tbInputFieldInstances.Where(tbStepInputFieldInstance => tbStepInputFieldInstance.ID == key));
