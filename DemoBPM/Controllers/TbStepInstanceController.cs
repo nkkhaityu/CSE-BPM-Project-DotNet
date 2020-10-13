@@ -45,7 +45,7 @@ namespace DemoBPM.Controllers
             _db.tbStepInstances.Add(se);
             await _db.SaveChangesAsync();
 
-            return Ok();
+            return Ok(se);
         }
 
         public override async Task<IHttpActionResult> PatchEntity([FromODataUri] int key, Delta<tbStepInstance> patch)
