@@ -83,38 +83,5 @@ namespace DemoBPM.Controllers
 
             return Ok();
         }
-
-        //[HttpPost]
-        //public IHttpActionResult UploadFileInputFieldInstance(int id, string type, MultipartDataMediaFormatter.Infrastructure.FormData formData)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest("ModelState invalid");
-        //    }
-
-        //    try
-        //    {
-        //        if (formData == null)
-        //        {
-        //            return BadRequest();
-        //        }
-        //        var fileValue = formData.Files.FirstOrDefault();
-        //        if (fileValue == null)
-        //        {
-        //            return BadRequest();
-        //        }
-
-        //        var file = fileValue.Value;
-        //        var name = file.FileName;
-        //        var data = file.Buffer;
-        //        _db.spv2_Org_UploadFile(id, data, name, (int)SESession.Current.UserId, DateTime.UtcNow, type);
-        //        return StatusCode(HttpStatusCode.NoContent);
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
     }
 }
