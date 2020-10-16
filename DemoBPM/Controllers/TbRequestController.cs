@@ -15,7 +15,7 @@ namespace DemoBPM.Controllers
             : base("TbRequestController")
         { }
 
-        [EnableQuery(PageSize = 20)]
+        [EnableQuery(PageSize = 100)]
         public override IQueryable<tbRequest> Get()
         {
             return _db.tbRequests.AsQueryable();

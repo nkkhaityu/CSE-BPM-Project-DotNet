@@ -15,7 +15,7 @@ namespace DemoBPM.Controllers
             : base("TbRoleController")
         { }
 
-        [EnableQuery(PageSize = 20)]
+        [EnableQuery(PageSize = 100)]
         public override IQueryable<tbRole> Get()
         {
             return _db.tbRoles.AsQueryable();

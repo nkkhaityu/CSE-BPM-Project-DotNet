@@ -15,7 +15,7 @@ namespace DemoBPM.Controllers
             : base("TbStepInstanceController")
         { }
 
-        [EnableQuery(PageSize = 20)]
+        [EnableQuery(PageSize = 100)]
         public override IQueryable<tbStepInstance> Get()
         {
             return _db.tbStepInstances.AsQueryable();

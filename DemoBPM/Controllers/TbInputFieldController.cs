@@ -15,7 +15,7 @@ namespace DemoBPM.Controllers
             : base("TbInputFieldController")
         { }
 
-        [EnableQuery(PageSize = 20)]
+        [EnableQuery(PageSize = 100)]
         public override IQueryable<tbInputField> Get()
         {
             return _db.tbInputFields.AsQueryable();
