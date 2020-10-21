@@ -762,25 +762,11 @@
             <End Role="tbUser" EntitySet="tbUsers" />
             <End Role="tbUserRole" EntitySet="tbUserRoles" />
           </AssociationSet>
-          <FunctionImport Name="sp_GetStepInstanceDetails" ReturnType="Collection(CseBpmDatabaseModel.sp_GetStepInstanceDetails_Result)" />
           <FunctionImport Name="sp_GetUserRole" ReturnType="Collection(CseBpmDatabaseModel.sp_GetUserRole_Result)" />
           <FunctionImport Name="sp_GetInputFieldInstance" ReturnType="Collection(CseBpmDatabaseModel.sp_GetInputFieldInstance_Result)" />
           <FunctionImport Name="sp_GetRequestInstance" ReturnType="Collection(CseBpmDatabaseModel.sp_GetRequestInstance_Result)" />
+          <FunctionImport Name="sp_GetStepInstanceDetails" ReturnType="Collection(CseBpmDatabaseModel.sp_GetStepInstanceDetails_Result)" />
         </EntityContainer>
-        <ComplexType Name="sp_GetStepInstanceDetails_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="Int32" Name="ApproverID" Nullable="true" />
-          <Property Type="Int32" Name="RequestInstanceID" Nullable="true" />
-          <Property Type="String" Name="DefaultContent" Nullable="true" />
-          <Property Type="String" Name="Status" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="ResponseMessage" Nullable="true" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="FinishedDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Description" Nullable="true" />
-          <Property Type="Int32" Name="StepIndex" Nullable="true" />
-          <Property Type="Int32" Name="ApproverRoleID" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="sp_GetUserRole_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="UserName" Nullable="true" MaxLength="100" />
@@ -815,6 +801,21 @@
           <Property Type="String" Name="Mail" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="Phone" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="FullName" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_GetStepInstanceDetails_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="ApproverID" Nullable="true" />
+          <Property Type="Int32" Name="RequestInstanceID" Nullable="true" />
+          <Property Type="Int32" Name="StepID" Nullable="true" />
+          <Property Type="String" Name="DefaultContent" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ResponseMessage" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="FinishedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="Int32" Name="StepIndex" Nullable="true" />
+          <Property Type="Int32" Name="ApproverRoleID" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -940,24 +941,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_GetStepInstanceDetails" FunctionName="CseBpmDatabaseModel.Store.sp_GetStepInstanceDetails">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="CseBpmDatabaseModel.sp_GetStepInstanceDetails_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
-                <ScalarProperty Name="RequestInstanceID" ColumnName="RequestInstanceID" />
-                <ScalarProperty Name="DefaultContent" ColumnName="DefaultContent" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ResponseMessage" ColumnName="ResponseMessage" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="FinishedDate" ColumnName="FinishedDate" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="StepIndex" ColumnName="StepIndex" />
-                <ScalarProperty Name="ApproverRoleID" ColumnName="ApproverRoleID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_GetUserRole" FunctionName="CseBpmDatabaseModel.Store.sp_GetUserRole">
             <ResultMapping>
               <ComplexTypeMapping TypeName="CseBpmDatabaseModel.sp_GetUserRole_Result">
@@ -1002,6 +985,25 @@
                 <ScalarProperty Name="Mail" ColumnName="Mail" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetStepInstanceDetails" FunctionName="CseBpmDatabaseModel.Store.sp_GetStepInstanceDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CseBpmDatabaseModel.sp_GetStepInstanceDetails_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
+                <ScalarProperty Name="RequestInstanceID" ColumnName="RequestInstanceID" />
+                <ScalarProperty Name="StepID" ColumnName="StepID" />
+                <ScalarProperty Name="DefaultContent" ColumnName="DefaultContent" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ResponseMessage" ColumnName="ResponseMessage" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="FinishedDate" ColumnName="FinishedDate" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StepIndex" ColumnName="StepIndex" />
+                <ScalarProperty Name="ApproverRoleID" ColumnName="ApproverRoleID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

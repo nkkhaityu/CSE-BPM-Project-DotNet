@@ -16,6 +16,7 @@ namespace DemoBPM.Database
         public int ID { get; set; }
         public Nullable<int> ApproverID { get; set; }
         public Nullable<int> RequestInstanceID { get; set; }
+        public Nullable<int> StepID { get; set; }
         public string DefaultContent { get; set; }
         public string Status { get; set; }
         public string ResponseMessage { get; set; }
