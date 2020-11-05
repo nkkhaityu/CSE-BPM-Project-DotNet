@@ -294,6 +294,8 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="sp_GetInputFieldInstance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetNumOfRequestInstance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetNumOfRequestInstanceToday" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_GetRequestInstance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_GetStepInstanceDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_GetUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -766,6 +768,8 @@
           <FunctionImport Name="sp_GetInputFieldInstance" ReturnType="Collection(CseBpmDatabaseModel.sp_GetInputFieldInstance_Result)" />
           <FunctionImport Name="sp_GetRequestInstance" ReturnType="Collection(CseBpmDatabaseModel.sp_GetRequestInstance_Result)" />
           <FunctionImport Name="sp_GetStepInstanceDetails" ReturnType="Collection(CseBpmDatabaseModel.sp_GetStepInstanceDetails_Result)" />
+          <FunctionImport Name="sp_GetNumOfRequestInstance" ReturnType="Collection(CseBpmDatabaseModel.sp_GetNumOfRequestInstance_Result)" />
+          <FunctionImport Name="sp_GetNumOfRequestInstanceToday" ReturnType="Collection(CseBpmDatabaseModel.sp_GetNumOfRequestInstanceToday_Result)" />
         </EntityContainer>
         <ComplexType Name="sp_GetUserRole_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -816,6 +820,14 @@
           <Property Type="String" Name="Description" Nullable="true" />
           <Property Type="Int32" Name="StepIndex" Nullable="true" />
           <Property Type="Int32" Name="ApproverRoleID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_GetNumOfRequestInstance_Result">
+          <Property Type="Int32" Name="RequestID" Nullable="true" />
+          <Property Type="Int32" Name="NumOfRequestInstance" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_GetNumOfRequestInstanceToday_Result">
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="count" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1004,6 +1016,22 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="StepIndex" ColumnName="StepIndex" />
                 <ScalarProperty Name="ApproverRoleID" ColumnName="ApproverRoleID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetNumOfRequestInstance" FunctionName="CseBpmDatabaseModel.Store.sp_GetNumOfRequestInstance">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CseBpmDatabaseModel.sp_GetNumOfRequestInstance_Result">
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+                <ScalarProperty Name="NumOfRequestInstance" ColumnName="NumOfRequestInstance" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetNumOfRequestInstanceToday" FunctionName="CseBpmDatabaseModel.Store.sp_GetNumOfRequestInstanceToday">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CseBpmDatabaseModel.sp_GetNumOfRequestInstanceToday_Result">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="count" ColumnName="count" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

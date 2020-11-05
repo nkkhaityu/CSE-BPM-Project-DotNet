@@ -186,6 +186,12 @@
     <Compile Include="Database\sp_GetInputFieldInstance_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_GetNumOfRequestInstanceToday_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_GetNumOfRequestInstance_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_GetRequestInstance_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

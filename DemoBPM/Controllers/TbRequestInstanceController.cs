@@ -82,5 +82,23 @@ namespace DemoBPM.Controllers
 
             return Ok(ret);
         }
+
+        [EnableQuery]
+        [HttpGet]
+        public IHttpActionResult GetNumOfRequestInstance()
+        {
+            var ret = _db.sp_GetNumOfRequestInstance();
+
+            return Ok(ret);
+        }
+
+        [EnableQuery]
+        [HttpGet]
+        public IHttpActionResult GetNumOfRequestInstanceToday()
+        {
+            var ret = _db.sp_GetNumOfRequestInstanceToday();
+
+            return Ok(ret);
+        }
     }
 }

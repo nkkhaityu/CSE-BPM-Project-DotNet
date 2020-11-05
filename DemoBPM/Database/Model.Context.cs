@@ -57,5 +57,15 @@ namespace DemoBPM.Database
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetStepInstanceDetails_Result>("sp_GetStepInstanceDetails");
         }
+    
+        public virtual ObjectResult<sp_GetNumOfRequestInstance_Result> sp_GetNumOfRequestInstance()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetNumOfRequestInstance_Result>("sp_GetNumOfRequestInstance");
+        }
+    
+        public virtual ObjectResult<sp_GetNumOfRequestInstanceToday_Result> sp_GetNumOfRequestInstanceToday()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetNumOfRequestInstanceToday_Result>("sp_GetNumOfRequestInstanceToday");
+        }
     }
 }
