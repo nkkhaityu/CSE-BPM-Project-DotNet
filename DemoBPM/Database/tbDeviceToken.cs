@@ -12,7 +12,7 @@ namespace DemoBPM.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class tbDeviceToken
+    public partial class tbDeviceToken : DemoBPM.Common.APISupport.SEObject
     {
         public int ID { get; set; }
         public Nullable<int> UserID { get; set; }
