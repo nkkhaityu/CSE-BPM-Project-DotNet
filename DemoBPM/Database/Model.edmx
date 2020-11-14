@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="CseBpmDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbDeviceToken">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="DeviceToken" Type="nvarchar(max)" />
+          <Property Name="IsLogin" Type="bit" />
+        </EntityType>
         <EntityType Name="tbInputField">
           <Key>
             <PropertyRef Name="ID" />
@@ -47,6 +56,7 @@
           <Property Name="StartDate" Type="datetime" />
           <Property Name="DueDate" Type="datetime" />
           <Property Name="NumOfSteps" Type="int" />
+          <Property Name="Keyword" Type="nchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tbRequestInstance">
           <Key>
@@ -113,6 +123,18 @@
           <Property Name="UserId" Type="int" />
           <Property Name="RoleId" Type="int" />
         </EntityType>
+        <Association Name="FK_tbDeviceToken_tbUser">
+          <End Role="tbUser" Type="Self.tbUser" Multiplicity="0..1" />
+          <End Role="tbDeviceToken" Type="Self.tbDeviceToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbDeviceToken">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbInputField_tbInputFieldType">
           <End Role="tbInputFieldType" Type="Self.tbInputFieldType" Multiplicity="0..1" />
           <End Role="tbInputField" Type="Self.tbInputField" Multiplicity="*" />
@@ -300,6 +322,7 @@
         <Function Name="sp_GetStepInstanceDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_GetUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="CseBpmDatabaseModelStoreContainer">
+          <EntitySet Name="tbDeviceToken" EntityType="Self.tbDeviceToken" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbInputField" EntityType="Self.tbInputField" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbInputFieldInstance" EntityType="Self.tbInputFieldInstance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbInputFieldType" EntityType="Self.tbInputFieldType" Schema="dbo" store:Type="Tables" />
@@ -310,6 +333,10 @@
           <EntitySet Name="tbStepInstance" EntityType="Self.tbStepInstance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbUser" EntityType="Self.tbUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbUserRole" EntityType="Self.tbUserRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbDeviceToken_tbUser" Association="Self.FK_tbDeviceToken_tbUser">
+            <End Role="tbUser" EntitySet="tbUser" />
+            <End Role="tbDeviceToken" EntitySet="tbDeviceToken" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbInputField_tbInputFieldType" Association="Self.FK_tbInputField_tbInputFieldType">
             <End Role="tbInputFieldType" EntitySet="tbInputFieldType" />
             <End Role="tbInputField" EntitySet="tbInputField" />
@@ -428,6 +455,7 @@
           <NavigationProperty Name="tbInputFields" Relationship="Self.FK_tbInputField_tbRequest" FromRole="tbRequest" ToRole="tbInputField" />
           <NavigationProperty Name="tbRequestInstances" Relationship="Self.FK_tbRequestInstance_tbRequest" FromRole="tbRequest" ToRole="tbRequestInstance" />
           <NavigationProperty Name="tbSteps" Relationship="Self.FK_tbStep_tbRequest" FromRole="tbRequest" ToRole="tbStep" />
+          <Property Name="Keyword" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="tbRequestInstance">
           <Key>
@@ -502,6 +530,7 @@
           <NavigationProperty Name="tbRequestInstances" Relationship="Self.FK_tbRequestInstance_tbUser" FromRole="tbUser" ToRole="tbRequestInstance" />
           <NavigationProperty Name="tbStepInstances" Relationship="Self.FK_tbStepInstance_tbUser" FromRole="tbUser" ToRole="tbStepInstance" />
           <NavigationProperty Name="tbUserRoles" Relationship="Self.FK_tbUserRole_tbUser" FromRole="tbUser" ToRole="tbUserRole" />
+          <NavigationProperty Name="tbDeviceTokens" Relationship="CseBpmDatabaseModel.FK_tbDeviceToken_tbUser" FromRole="tbUser" ToRole="tbDeviceToken" />
         </EntityType>
         <EntityType Name="tbUserRole">
           <Key>
@@ -766,10 +795,15 @@
           </AssociationSet>
           <FunctionImport Name="sp_GetUserRole" ReturnType="Collection(CseBpmDatabaseModel.sp_GetUserRole_Result)" />
           <FunctionImport Name="sp_GetInputFieldInstance" ReturnType="Collection(CseBpmDatabaseModel.sp_GetInputFieldInstance_Result)" />
-          <FunctionImport Name="sp_GetRequestInstance" ReturnType="Collection(CseBpmDatabaseModel.sp_GetRequestInstance_Result)" />
           <FunctionImport Name="sp_GetStepInstanceDetails" ReturnType="Collection(CseBpmDatabaseModel.sp_GetStepInstanceDetails_Result)" />
           <FunctionImport Name="sp_GetNumOfRequestInstance" ReturnType="Collection(CseBpmDatabaseModel.sp_GetNumOfRequestInstance_Result)" />
           <FunctionImport Name="sp_GetNumOfRequestInstanceToday" ReturnType="Collection(CseBpmDatabaseModel.sp_GetNumOfRequestInstanceToday_Result)" />
+          <EntitySet Name="tbDeviceTokens" EntityType="CseBpmDatabaseModel.tbDeviceToken" />
+          <AssociationSet Name="FK_tbDeviceToken_tbUser" Association="CseBpmDatabaseModel.FK_tbDeviceToken_tbUser">
+            <End Role="tbUser" EntitySet="tbUsers" />
+            <End Role="tbDeviceToken" EntitySet="tbDeviceTokens" />
+          </AssociationSet>
+          <FunctionImport Name="sp_GetRequestInstance" ReturnType="Collection(CseBpmDatabaseModel.sp_GetRequestInstance_Result)" />
         </EntityContainer>
         <ComplexType Name="sp_GetUserRole_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -787,24 +821,6 @@
           <Property Type="String" Name="TextAnswer" Nullable="true" />
           <Property Type="Int32" Name="InputFieldTypeID" Nullable="true" />
           <Property Type="String" Name="Title" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_GetRequestInstance_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="Int32" Name="UserID" Nullable="true" />
-          <Property Type="Int32" Name="RequestID" Nullable="true" />
-          <Property Type="String" Name="DefaultContent" Nullable="true" />
-          <Property Type="Int32" Name="CurrentStepIndex" Nullable="true" />
-          <Property Type="String" Name="Status" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="ApproverID" Nullable="true" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="FinishedDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="RequestName" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="RequestDescription" Nullable="true" />
-          <Property Type="Int32" Name="NumOfSteps" Nullable="true" />
-          <Property Type="String" Name="UserName" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Mail" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Phone" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="FullName" Nullable="true" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="sp_GetStepInstanceDetails_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -828,6 +844,47 @@
         <ComplexType Name="sp_GetNumOfRequestInstanceToday_Result">
           <Property Type="String" Name="Status" Nullable="true" MaxLength="100" />
           <Property Type="Int32" Name="count" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="tbDeviceToken">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="DeviceToken" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsLogin" Type="Boolean" />
+          <NavigationProperty Name="tbUser" Relationship="CseBpmDatabaseModel.FK_tbDeviceToken_tbUser" FromRole="tbDeviceToken" ToRole="tbUser" />
+        </EntityType>
+        <Association Name="FK_tbDeviceToken_tbUser">
+          <End Type="CseBpmDatabaseModel.tbUser" Role="tbUser" Multiplicity="0..1" />
+          <End Type="CseBpmDatabaseModel.tbDeviceToken" Role="tbDeviceToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbDeviceToken">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_GetRequestInstance_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="UserID" Nullable="true" />
+          <Property Type="Int32" Name="RequestID" Nullable="true" />
+          <Property Type="String" Name="DefaultContent" Nullable="true" />
+          <Property Type="Int32" Name="CurrentStepIndex" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="ApproverID" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="FinishedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Keyword" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="RequestName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="RequestDescription" Nullable="true" />
+          <Property Type="Int32" Name="NumOfSteps" Nullable="true" />
+          <Property Type="String" Name="UserName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Mail" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="FullName" Nullable="true" MaxLength="100" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -870,6 +927,7 @@
           <EntitySetMapping Name="tbRequests">
             <EntityTypeMapping TypeName="CseBpmDatabaseModel.tbRequest">
               <MappingFragment StoreEntitySet="tbRequest">
+                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -978,28 +1036,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_GetRequestInstance" FunctionName="CseBpmDatabaseModel.Store.sp_GetRequestInstance">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="CseBpmDatabaseModel.sp_GetRequestInstance_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
-                <ScalarProperty Name="DefaultContent" ColumnName="DefaultContent" />
-                <ScalarProperty Name="CurrentStepIndex" ColumnName="CurrentStepIndex" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="FinishedDate" ColumnName="FinishedDate" />
-                <ScalarProperty Name="RequestName" ColumnName="RequestName" />
-                <ScalarProperty Name="RequestDescription" ColumnName="RequestDescription" />
-                <ScalarProperty Name="NumOfSteps" ColumnName="NumOfSteps" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Mail" ColumnName="Mail" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_GetStepInstanceDetails" FunctionName="CseBpmDatabaseModel.Store.sp_GetStepInstanceDetails">
             <ResultMapping>
               <ComplexTypeMapping TypeName="CseBpmDatabaseModel.sp_GetStepInstanceDetails_Result">
@@ -1032,6 +1068,39 @@
               <ComplexTypeMapping TypeName="CseBpmDatabaseModel.sp_GetNumOfRequestInstanceToday_Result">
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="count" ColumnName="count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="tbDeviceTokens">
+            <EntityTypeMapping TypeName="CseBpmDatabaseModel.tbDeviceToken">
+              <MappingFragment StoreEntitySet="tbDeviceToken">
+                <ScalarProperty Name="IsLogin" ColumnName="IsLogin" />
+                <ScalarProperty Name="DeviceToken" ColumnName="DeviceToken" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetRequestInstance" FunctionName="CseBpmDatabaseModel.Store.sp_GetRequestInstance">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CseBpmDatabaseModel.sp_GetRequestInstance_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+                <ScalarProperty Name="DefaultContent" ColumnName="DefaultContent" />
+                <ScalarProperty Name="CurrentStepIndex" ColumnName="CurrentStepIndex" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="FinishedDate" ColumnName="FinishedDate" />
+                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
+                <ScalarProperty Name="RequestName" ColumnName="RequestName" />
+                <ScalarProperty Name="RequestDescription" ColumnName="RequestDescription" />
+                <ScalarProperty Name="NumOfSteps" ColumnName="NumOfSteps" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

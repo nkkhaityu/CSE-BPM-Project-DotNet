@@ -20,6 +20,7 @@ namespace DemoBPM.Database
             this.tbRequestInstances = new HashSet<tbRequestInstance>();
             this.tbStepInstances = new HashSet<tbStepInstance>();
             this.tbUserRoles = new HashSet<tbUserRole>();
+            this.tbDeviceTokens = new HashSet<tbDeviceToken>();
         }
     
         public int ID { get; set; }
@@ -35,5 +36,7 @@ namespace DemoBPM.Database
         public virtual ICollection<tbStepInstance> tbStepInstances { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbUserRole> tbUserRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbDeviceToken> tbDeviceTokens { get; set; }
     }
 }

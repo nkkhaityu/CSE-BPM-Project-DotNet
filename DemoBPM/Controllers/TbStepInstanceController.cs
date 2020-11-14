@@ -15,7 +15,7 @@ namespace DemoBPM.Controllers
             : base("TbStepInstanceController")
         { }
 
-        [EnableQuery(PageSize = 100)]
+        [EnableQuery(PageSize = 100, MaxNodeCount = 1000)]
         public override IQueryable<tbStepInstance> Get()
         {
             return _db.tbStepInstances.AsQueryable();
@@ -26,7 +26,7 @@ namespace DemoBPM.Controllers
             return SingleResult.Create(_db.tbStepInstances.Where(tbStepInstance => tbStepInstance.ID == key));
         }
 
-        [EnableQuery]
+        [EnableQuery(PageSize = 100, MaxNodeCount = 1000)]
         [HttpGet]
         public IHttpActionResult GetStepInstanceDetails()
         {

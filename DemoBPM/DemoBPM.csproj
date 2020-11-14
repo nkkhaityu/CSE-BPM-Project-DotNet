@@ -159,6 +159,7 @@
     <Compile Include="Common\Security\AuthSupport.cs" />
     <Compile Include="Common\Security\SEAuthorizeAttribute.cs" />
     <Compile Include="Common\Security\SessionExtensions.cs" />
+    <Compile Include="Controllers\TbDeviceTokenController.cs" />
     <Compile Include="Controllers\TbInputFieldController.cs" />
     <Compile Include="Controllers\TbInputFieldInstanceController.cs" />
     <Compile Include="Controllers\TbRequestController.cs" />
@@ -199,6 +200,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_GetUserRole_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\tbDeviceToken.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\tbInputField.cs">

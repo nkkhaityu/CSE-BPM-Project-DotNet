@@ -30,6 +30,8 @@
         <AssociationConnector Association="CseBpmDatabaseModel.FK_tbStepInstance_tbStep" ManuallyRouted="false" />
         <AssociationConnector Association="CseBpmDatabaseModel.FK_tbStepInstance_tbUser" ManuallyRouted="false" />
         <AssociationConnector Association="CseBpmDatabaseModel.FK_tbUserRole_tbUser" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbDeviceToken" Width="1.5" PointX="9" PointY="10.75" />
+        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbDeviceToken_tbUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

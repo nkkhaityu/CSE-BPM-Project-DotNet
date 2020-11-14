@@ -31,6 +31,7 @@ namespace DemoBPM.Database
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> DueDate { get; set; }
         public Nullable<int> NumOfSteps { get; set; }
+        public string Keyword { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbInputField> tbInputFields { get; set; }

@@ -50,6 +50,8 @@ namespace DemoBPM
             builder.EntitySet<tbInputFieldInstance>("tbInputFieldInstance");
             builder.EntityType<tbInputFieldInstance>().Collection.Function("GetInputFieldInstance").Returns<sp_GetInputFieldInstance_Result>();
 
+            builder.EntitySet<tbDeviceToken>("tbDeviceToken");
+
             config.MapODataServiceRoute("odata", "odata", model: builder.GetEdmModel());
         }
     }
