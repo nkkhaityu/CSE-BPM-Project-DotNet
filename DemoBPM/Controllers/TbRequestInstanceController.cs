@@ -119,6 +119,12 @@ namespace DemoBPM.Controllers
                 }
                 string[] deviceIds = deviceIdList.ToArray();
 
+                sp_GetRequestInstance_Result requestInstance = _db.sp_GetRequestInstance().Where(rs => rs.ID == key).FirstOrDefault() as sp_GetRequestInstance_Result;
+                if (requestInstance == null)
+                {
+                    return;
+                }
+
                 WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
                 tRequest.Method = "post";
                 //serverKey - Key from Firebase cloud messaging server  
@@ -133,30 +139,30 @@ namespace DemoBPM.Controllers
                     content_available = true,
                     notification = new
                     {
-                        title = "Test",
-                        body = "Cập nhật yêu cầu",
+                        title = "Cập nhật yêu cầu",
+                        body = "Nhấp để mở chi tiết.",
                         badge = 1
                     },
                     data = new
                     {
                         requestInstance = new
                         {
-                            ID = 61,
-                            UserID = 4,
-                            RequestID = 16,
-                            DefaultContent = "Test",
-                            CurrentStepIndex = 1,
-                            Status = "active",
-                            ApproverID = 0,
-                            CreatedDate = "2020-11-03T04:13:56-08:00",
-                            FinishedDate = "2020-11-10T04:13:56-08:00",
-                            RequestName = "Chuyen nganh",
-                            RequestDescription = "Chuyen doi chuyen nganh",
-                            NumOfSteps = 6,
-                            UserName = "Test",
-                            Mail = "sv@gmail.com",
-                            Phone = "0123456789",
-                            FullName = "SV"
+                            ID = requestInstance.ID,
+                            UserID = requestInstance.UserID,
+                            RequestID = requestInstance.RequestID,
+                            DefaultContent = requestInstance.DefaultContent,
+                            CurrentStepIndex = requestInstance.CurrentStepIndex,
+                            Status = requestInstance.Status,
+                            ApproverID = requestInstance.ApproverID,
+                            CreatedDate = requestInstance.CreatedDate,
+                            FinishedDate = requestInstance.FinishedDate,
+                            RequestName = requestInstance.RequestName,
+                            RequestDescription = requestInstance.RequestDescription,
+                            NumOfSteps = requestInstance.NumOfSteps,
+                            UserName = requestInstance.UserName,
+                            Mail = requestInstance.Mail,
+                            Phone = requestInstance.Phone,
+                            FullName = requestInstance.FullName
                         },
                         click_action = "FLUTTER_NOTIFICATION_CLICK"
                     }
