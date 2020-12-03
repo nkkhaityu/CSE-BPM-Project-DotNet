@@ -35,75 +35,6 @@ namespace DemoBPM.Controllers
             return Ok(_db.tbUsers.Where(tbUser => tbUser.ID == AuthSession.Current.UserId));
         }
 
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<IHttpActionResult> Login(ODataActionParameters parameters)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var u = parameters["user"];
-            if (!(u is tbUser))
-            {
-                return BadRequest();
-            }   
-
-            tbUser user = u as tbUser;
-
-            try
-            {
-                var strLogin = Auth.Login(user.UserName, user.Password);
-                if (strLogin.ToLower() != "true")
-                {
-                    return BadRequest(strLogin);
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-            // Return current user ID and role
-            var userID = AuthSession.Current.UserId;
-
-            var userRole = _db.tbUserRoles.Where(tbUserRole => tbUserRole.UserId == userID);
-
-            return Ok(userRole);
-        }
-
-        [HttpPost]
-        public IHttpActionResult Logout()
-        {
-            SessionExtensions.Clear();
-
-            //FormsAuthentication.SignOut();
-
-            return Ok();
-        }
-
-        public override async Task<IHttpActionResult> PatchEntity([FromODataUri] int key, Delta<tbUser> patch)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var tbUser = _db.tbUsers.Find(key);
-            if (tbUser == null)
-            {
-                return NotFound();
-            }
-            Validate(patch.GetInstance());
-
-            patch.Patch(tbUser);
-
-            await _db.SaveChangesAsync();
-
-            return Ok(tbUser);
-        }
-
         public override async Task<IHttpActionResult> PostEntity(tbUser se)
         {
             if (!ModelState.IsValid)
@@ -122,6 +53,70 @@ namespace DemoBPM.Controllers
             await _db.SaveChangesAsync();
 
             return Ok(se);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> Login(ODataActionParameters parameters)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var u = parameters["user"];
+            if (!(u is tbUser))
+            {
+                return BadRequest();
+            }   
+
+            tbUser user = u as tbUser;
+            try
+            {
+                var strLogin = Auth.Login(user.UserName, user.Password);
+                if (strLogin.ToLower() != "true")
+                {
+                    return BadRequest(strLogin);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            // Return current user ID and role
+            var userID = AuthSession.Current.UserId;
+            var userRole = _db.tbUserRoles.Where(tbUserRole => tbUserRole.UserId == userID);
+
+            return Ok(userRole);
+        }
+
+        [HttpPost]
+        public IHttpActionResult Logout()
+        {
+            SessionExtensions.Clear();
+            //FormsAuthentication.SignOut();
+            return Ok();
+        }
+
+        public override async Task<IHttpActionResult> PatchEntity([FromODataUri] int key, Delta<tbUser> patch)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var tbUser = _db.tbUsers.Find(key);
+            if (tbUser == null)
+            {
+                return NotFound();
+            }
+
+            Validate(patch.GetInstance());
+            patch.Patch(tbUser);
+            await _db.SaveChangesAsync();
+
+            return Ok(tbUser);
         }
 
         public override async Task<IHttpActionResult> DeleteEntity([FromODataUri] int key)

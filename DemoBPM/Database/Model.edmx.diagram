@@ -6,14 +6,14 @@
     <edmx:Diagrams>
       <Diagram DiagramId="9daf50c09d0149cb92649194f9245f7a" Name="Diagram1" ZoomLevel="64">
         <EntityTypeShape EntityType="CseBpmDatabaseModel.tbInputField" Width="1.5" PointX="4.125" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbInputFieldInstance" Width="1.75" PointX="9.875" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbInputFieldType" Width="1.5" PointX="6.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbInputFieldInstance" Width="1.75" PointX="9.625" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbInputFieldType" Width="1.75" PointX="6.625" PointY="10.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CseBpmDatabaseModel.tbRequest" Width="1.5" PointX="4" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbRequestInstance" Width="1.5" PointX="10" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbRequestInstance" Width="1.75" PointX="10" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CseBpmDatabaseModel.tbRole" Width="1.5" PointX="1.25" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CseBpmDatabaseModel.tbStep" Width="1.5" PointX="1.25" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbStepInstance" Width="1.5" PointX="6.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbUser" Width="1.5" PointX="6.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbStepInstance" Width="1.75" PointX="6.625" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbUser" Width="1.75" PointX="6.625" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CseBpmDatabaseModel.tbUserRole" Width="1.5" PointX="4" PointY="1.875" IsExpanded="true" />
         <AssociationConnector Association="CseBpmDatabaseModel.FK_tbInputField_tbInputFieldType" ManuallyRouted="false" />
         <AssociationConnector Association="CseBpmDatabaseModel.FK_tbInputField_tbRequest" ManuallyRouted="false" />
@@ -23,15 +23,20 @@
         <AssociationConnector Association="CseBpmDatabaseModel.FK_tbInputFieldInstance_tbStepInstance" ManuallyRouted="false" />
         <AssociationConnector Association="CseBpmDatabaseModel.FK_tbRequestInstance_tbRequest" ManuallyRouted="false" />
         <AssociationConnector Association="CseBpmDatabaseModel.FK_tbStep_tbRequest" ManuallyRouted="false" />
-        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbRequestInstance_tbUser" ManuallyRouted="false" />
+        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbRequestInstance_tbUser" ManuallyRouted="true" >
+          <ConnectorPoint PointX="7.9447804690698991" PointY="4.1917936197916665" />
+          <ConnectorPoint PointX="7.9447804690698991" PointY="4.9243297768811933" />
+          <ConnectorPoint PointX="10" PointY="4.9243297768811933" />
+        </AssociationConnector>
         <AssociationConnector Association="CseBpmDatabaseModel.FK_tbStepInstance_tbRequestInstance" ManuallyRouted="false" />
         <AssociationConnector Association="CseBpmDatabaseModel.FK_tbStep_tbRole" ManuallyRouted="false" />
         <AssociationConnector Association="CseBpmDatabaseModel.FK_tbUserRole_tbRole" ManuallyRouted="false" />
         <AssociationConnector Association="CseBpmDatabaseModel.FK_tbStepInstance_tbStep" ManuallyRouted="false" />
         <AssociationConnector Association="CseBpmDatabaseModel.FK_tbStepInstance_tbUser" ManuallyRouted="false" />
         <AssociationConnector Association="CseBpmDatabaseModel.FK_tbUserRole_tbUser" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbDeviceToken" Width="1.5" PointX="9" PointY="10.75" />
-        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbDeviceToken_tbUser" />
+        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbDeviceToken" Width="1.5" PointX="9.625" PointY="2" />
+        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbDeviceToken_tbUser" ManuallyRouted="false" >
+        </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

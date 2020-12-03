@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.852
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoBPM", "DemoBPM\DemoBPM.csproj", "{F45C9CAE-B5C5-4103-A0A5-42758C98EE81}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPM-Project", "DemoBPM\BPM-Project.csproj", "{F45C9CAE-B5C5-4103-A0A5-42758C98EE81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

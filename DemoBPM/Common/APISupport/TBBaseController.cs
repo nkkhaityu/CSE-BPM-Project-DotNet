@@ -13,9 +13,7 @@ namespace DemoBPM.Common.APISupport
         where TDbContext : DbContext
         where TEntity : Common.APISupport.SEObject
     {
-        public TBBaseController(string logIdentifier) : base(logIdentifier)
-        {
-        }
+        public TBBaseController(string logIdentifier) : base(logIdentifier) {}
 
         public abstract IQueryable<TEntity> Get();
         public abstract SingleResult<TEntity> Get([FromODataUri] int key);
@@ -68,7 +66,6 @@ namespace DemoBPM.Common.APISupport
 
             }
         }
-
 
         public async Task<IHttpActionResult> Put([FromODataUri] int key, TEntity update)
         {
