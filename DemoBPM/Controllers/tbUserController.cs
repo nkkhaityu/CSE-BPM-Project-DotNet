@@ -42,8 +42,10 @@ namespace DemoBPM.Controllers
                 return BadRequest(ModelState);
             }
 
+            var existUser = _db.tbUsers.Where(tbUser => (tbUser.UserName == se.UserName)).FirstOrDefault();
+
             var user = se as tbUser;
-            if (!(user is tbUser))
+            if (!(user is tbUser) || existUser != null)
             {
                 return BadRequest();
             }
@@ -52,7 +54,7 @@ namespace DemoBPM.Controllers
             _db.tbUsers.Add(user);
             await _db.SaveChangesAsync();
 
-            return Ok(se);
+            return Ok(user);
         }
 
         [AllowAnonymous]

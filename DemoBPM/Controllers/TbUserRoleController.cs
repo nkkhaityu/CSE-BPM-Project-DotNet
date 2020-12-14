@@ -36,9 +36,17 @@ namespace DemoBPM.Controllers
             throw new NotImplementedException();
         }
 
-        public override Task<IHttpActionResult> PostEntity(tbUserRole se)
+         public override async Task<IHttpActionResult> PostEntity(tbUserRole se)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _db.tbUserRoles.Add(se);
+            await _db.SaveChangesAsync();
+
+            return Ok(se);
         }
     }
 }

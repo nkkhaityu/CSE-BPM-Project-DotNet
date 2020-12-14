@@ -13,7 +13,6 @@ namespace DemoBPM
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -36,6 +35,8 @@ namespace DemoBPM
             builder.EntitySet<tbRole>("tbRole");
             builder.EntitySet<tbRequest>("tbRequest");
             builder.EntitySet<tbStep>("tbStep");
+
+            builder.EntitySet<tbUserRole>("tbUserRole");
 
             builder.EntitySet<tbStepInstance>("tbStepInstance");
             builder.EntityType<tbStepInstance>().Collection.Function("GetStepInstanceDetails").Returns<sp_GetStepInstanceDetails_Result>();
