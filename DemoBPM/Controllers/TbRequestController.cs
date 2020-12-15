@@ -33,6 +33,13 @@ namespace DemoBPM.Controllers
                 return BadRequest(ModelState);
             }
 
+            var existRequest = _db.tbRequests.Where(tbRequest => (tbRequest.Keyword == se.Keyword)).FirstOrDefault();
+
+            if (existRequest != null)
+            {
+                return BadRequest();
+            }
+
             _db.tbRequests.Add(se);
             await _db.SaveChangesAsync();
 
@@ -51,10 +58,9 @@ namespace DemoBPM.Controllers
             {
                 return NotFound();
             }
+
             Validate(patch.GetInstance());
-
             patch.Patch(request);
-
             await _db.SaveChangesAsync();
 
             return Ok();
