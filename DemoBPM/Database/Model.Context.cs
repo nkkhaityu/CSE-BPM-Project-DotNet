@@ -59,11 +59,6 @@ namespace DemoBPM.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetNumOfRequestInstanceToday_Result>("sp_GetNumOfRequestInstanceToday");
         }
     
-        public virtual ObjectResult<sp_GetRequestInstance_Result> sp_GetRequestInstance()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetRequestInstance_Result>("sp_GetRequestInstance");
-        }
-    
         public virtual ObjectResult<sp_GetInputFieldInstance_Result> sp_GetInputFieldInstance()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetInputFieldInstance_Result>("sp_GetInputFieldInstance");
@@ -76,6 +71,11 @@ namespace DemoBPM.Database
                 new ObjectParameter("RequestInstanceID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetRequestInstanceExpan_Result>("sp_GetRequestInstanceExpan", requestInstanceIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetRequestInstance_Result> sp_GetRequestInstance()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetRequestInstance_Result>("sp_GetRequestInstance");
         }
     }
 }
