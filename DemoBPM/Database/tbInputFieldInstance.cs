@@ -21,6 +21,7 @@ namespace DemoBPM.Database
         public Nullable<int> InputFieldID { get; set; }
         public string TextAnswer { get; set; }
         public string FileName { get; set; }
+        public string FileUrl { get; set; }
     
         public virtual tbInputField tbInputField { get; set; }
         public virtual tbRequestInstance tbRequestInstance { get; set; }

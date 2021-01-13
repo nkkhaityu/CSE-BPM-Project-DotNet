@@ -44,11 +44,6 @@ namespace DemoBPM.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUserRole_Result>("sp_GetUserRole");
         }
     
-        public virtual ObjectResult<sp_GetInputFieldInstance_Result> sp_GetInputFieldInstance()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetInputFieldInstance_Result>("sp_GetInputFieldInstance");
-        }
-    
         public virtual ObjectResult<sp_GetStepInstanceDetails_Result> sp_GetStepInstanceDetails()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetStepInstanceDetails_Result>("sp_GetStepInstanceDetails");
@@ -67,6 +62,20 @@ namespace DemoBPM.Database
         public virtual ObjectResult<sp_GetRequestInstance_Result> sp_GetRequestInstance()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetRequestInstance_Result>("sp_GetRequestInstance");
+        }
+    
+        public virtual ObjectResult<sp_GetInputFieldInstance_Result> sp_GetInputFieldInstance()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetInputFieldInstance_Result>("sp_GetInputFieldInstance");
+        }
+    
+        public virtual ObjectResult<sp_GetRequestInstanceExpan_Result> sp_GetRequestInstanceExpan(Nullable<int> requestInstanceID)
+        {
+            var requestInstanceIDParameter = requestInstanceID.HasValue ?
+                new ObjectParameter("RequestInstanceID", requestInstanceID) :
+                new ObjectParameter("RequestInstanceID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetRequestInstanceExpan_Result>("sp_GetRequestInstanceExpan", requestInstanceIDParameter);
         }
     }
 }
