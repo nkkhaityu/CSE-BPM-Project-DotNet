@@ -91,6 +91,58 @@ namespace DemoBPM.Controllers
 
         [EnableQuery]
         [HttpGet]
+        public IHttpActionResult GetRequestInstanceAll()
+        {
+            var ret = _db.sp_GetRequestInstance().ToList();
+
+            List<RI> retRIs = new List<RI>();
+
+            if(ret.Count > 0)
+            {
+                foreach(sp_GetRequestInstance_Result r in ret)
+                {
+                    RI retRI = new RI();
+                    retRI.RequestInstance = new RequestInstanceModel();
+                    retRI.RequestInstance.RequestInstanceID = r.ID;
+                    retRI.RequestInstance.UserID = r.UserID;
+                    retRI.RequestInstance.RequestID = r.RequestID;
+                    retRI.RequestInstance.DefaultContent = r.DefaultContent;
+                    retRI.RequestInstance.CurrentStepIndex = r.CurrentStepIndex;
+                    retRI.RequestInstance.Status = r.Status;
+                    retRI.RequestInstance.ApproverID = r.ApproverID;
+                    retRI.RequestInstance.CreatedDate = r.CreatedDate;
+                    retRI.RequestInstance.FinishedDate = r.FinishedDate;
+                    retRI.RequestInstance.Keyword = r.Keyword;
+                    retRI.RequestInstance.RequestName = r.RequestName;
+                    retRI.RequestInstance.RequestDescription = r.RequestDescription;
+                    retRI.RequestInstance.NumOfSteps = r.NumOfSteps;
+                    retRI.RequestInstance.UserName = r.UserName;
+                    retRI.RequestInstance.Mail = r.Mail;
+                    retRI.RequestInstance.Phone = r.Phone;
+                    retRI.RequestInstance.FullName = r.FullName;
+
+                    var retExpan = _db.sp_GetRequestInstanceExpan(r.ID).ToList();
+                    if (retExpan.Count > 0)
+                    {
+                        retRI.RequestInstanceExpans = new List<sp_GetRequestInstanceExpan_Result>();
+                        foreach (var rE in retExpan)
+                        {
+                            retRI.RequestInstanceExpans.Add(rE);
+                        }
+                    }
+
+                    if (retRI != null)
+                    {
+                        retRIs.Add(retRI);
+                    }
+                }
+            }
+
+            return Ok(retRIs);
+        }
+
+        [EnableQuery]
+        [HttpGet]
         public IHttpActionResult GetNumOfRequestInstance()
         {
             var ret = _db.sp_GetNumOfRequestInstance();
@@ -189,5 +241,33 @@ namespace DemoBPM.Controllers
                 }
             }
         }
+    }
+
+    public class RI
+    {
+        public RequestInstanceModel RequestInstance { get; set; }
+
+        public List<sp_GetRequestInstanceExpan_Result> RequestInstanceExpans { get; set; }
+    }
+
+    public partial class RequestInstanceModel
+    {
+        public int RequestInstanceID { get; set; }
+        public Nullable<int> UserID { get; set; }
+        public Nullable<int> RequestID { get; set; }
+        public string DefaultContent { get; set; }
+        public Nullable<int> CurrentStepIndex { get; set; }
+        public string Status { get; set; }
+        public Nullable<int> ApproverID { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> FinishedDate { get; set; }
+        public string Keyword { get; set; }
+        public string RequestName { get; set; }
+        public string RequestDescription { get; set; }
+        public Nullable<int> NumOfSteps { get; set; }
+        public string UserName { get; set; }
+        public string Mail { get; set; }
+        public string Phone { get; set; }
+        public string FullName { get; set; }
     }
 }

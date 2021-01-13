@@ -14,7 +14,7 @@ namespace DemoBPM.Database
     public partial class sp_GetRequestInstanceExpan_Result
     {
         public string Title { get; set; }
-        public Nullable<int> InputFieldTypeID { get; set; }
         public string TextAnswer { get; set; }
+        public string FileUrl { get; set; }
     }
 }

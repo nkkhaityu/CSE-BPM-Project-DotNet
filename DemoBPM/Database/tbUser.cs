@@ -29,6 +29,7 @@ namespace DemoBPM.Database
         public string Phone { get; set; }
         public string Password { get; set; }
         public string FullName { get; set; }
+        public string Code { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbRequestInstance> tbRequestInstances { get; set; }
