@@ -91,55 +91,77 @@ namespace DemoBPM.Controllers
 
         [EnableQuery]
         [HttpGet]
-        public IHttpActionResult GetRequestInstanceAll()
+        public IHttpActionResult GetRequestInstanceDetails()
         {
-            var ret = _db.sp_GetRequestInstance().ToList();
+            var ris = _db.sp_GetRequestInstance().ToList();
 
-            List<RI> retRIs = new List<RI>();
-
-            if(ret.Count > 0)
+            List<RequestInstanceDetails> resRIs = new List<RequestInstanceDetails>();
+            foreach (sp_GetRequestInstance_Result ri in ris)
             {
-                foreach(sp_GetRequestInstance_Result r in ret)
+                RequestInstanceDetails r = new RequestInstanceDetails();
+
+                r.ID = ri.ID;
+                r.UserID = ri.UserID;
+                r.RequestID = ri.RequestID;
+                r.DefaultContent = ri.DefaultContent;
+                r.CurrentStepIndex = ri.CurrentStepIndex;
+                r.Status = ri.Status;
+                r.ApproverID = ri.ApproverID;
+                r.CreatedDate = ri.CreatedDate;
+                r.FinishedDate = ri.FinishedDate;
+                r.Keyword = ri.Keyword;
+                r.RequestName = ri.RequestName;
+                r.RequestDescription = ri.RequestDescription;
+                r.NumOfSteps = ri.NumOfSteps;
+                r.UserName = ri.UserName;
+                r.Mail = ri.Mail;
+                r.Phone = ri.Phone;
+                r.FullName = ri.FullName;
+                r.Code = ri.Code;
+
+                var ips = _db.sp_GetRequestInstanceExpan(r.ID).ToList();
+                if (ips.Count > 0)
                 {
-                    RI retRI = new RI();
-                    retRI.RequestInstance = new RequestInstanceModel();
-                    retRI.RequestInstance.RequestInstanceID = r.ID;
-                    retRI.RequestInstance.UserID = r.UserID;
-                    retRI.RequestInstance.RequestID = r.RequestID;
-                    retRI.RequestInstance.DefaultContent = r.DefaultContent;
-                    retRI.RequestInstance.CurrentStepIndex = r.CurrentStepIndex;
-                    retRI.RequestInstance.Status = r.Status;
-                    retRI.RequestInstance.ApproverID = r.ApproverID;
-                    retRI.RequestInstance.CreatedDate = r.CreatedDate;
-                    retRI.RequestInstance.FinishedDate = r.FinishedDate;
-                    retRI.RequestInstance.Keyword = r.Keyword;
-                    retRI.RequestInstance.RequestName = r.RequestName;
-                    retRI.RequestInstance.RequestDescription = r.RequestDescription;
-                    retRI.RequestInstance.NumOfSteps = r.NumOfSteps;
-                    retRI.RequestInstance.UserName = r.UserName;
-                    retRI.RequestInstance.Mail = r.Mail;
-                    retRI.RequestInstance.Phone = r.Phone;
-                    retRI.RequestInstance.FullName = r.FullName;
-
-                    var retExpan = _db.sp_GetRequestInstanceExpan(r.ID).ToList();
-                    if (retExpan.Count > 0)
+                    List<sp_GetRequestInstanceExpan_Result> ipExpans = new List<sp_GetRequestInstanceExpan_Result>();
+                    foreach (sp_GetRequestInstanceExpan_Result ip in ips)
                     {
-                        retRI.RequestInstanceExpans = new List<sp_GetRequestInstanceExpan_Result>();
-                        foreach (var rE in retExpan)
-                        {
-                            retRI.RequestInstanceExpans.Add(rE);
-                        }
+                        sp_GetRequestInstanceExpan_Result i = new sp_GetRequestInstanceExpan_Result();
+                        i.Title = ip.Title;
+                        i.TextAnswer = ip.TextAnswer;
+                        i.FileUrl = ip.FileUrl;
+                        i.InputFieldTypeID = ip.InputFieldTypeID;
+                        ipExpans.Add(i);
                     }
-
-                    if (retRI != null)
-                    {
-                        retRIs.Add(retRI);
-                    }
+                    r.InputFieldInstances = ipExpans;
                 }
+                resRIs.Add(r);
             }
 
-            return Ok(retRIs);
+            return Ok(resRIs);
         }
+
+        //[EnableQuery]
+        //[HttpGet]
+        //public IHttpActionResult GetRequestInstanceDetails()
+        //{
+        //    var res = _db.tbRequestInstances.ToList();
+
+        //    List<RequestInstanceDetails> resRIs = new List<RequestInstanceDetails>();
+
+        //    foreach (tbRequestInstance r in res)
+        //    {
+        //        RequestInstanceDetails instanceDetails = new RequestInstanceDetails();
+        //        instanceDetails.RequestInstance = r;
+        //        instanceDetails.StepInstances = new List<StepInstanceDetails>();
+
+        //        instanceDetails.InputFieldInstances = r.tbInputFieldInstances.ToList();
+        //        instanceDetails.User = r.tbUser;
+
+        //        resRIs.Add(instanceDetails);
+        //    }
+
+        //    return Ok(resRIs);
+        //}
 
         [EnableQuery]
         [HttpGet]
@@ -243,16 +265,9 @@ namespace DemoBPM.Controllers
         }
     }
 
-    public class RI
+    public class RequestInstanceDetails
     {
-        public RequestInstanceModel RequestInstance { get; set; }
-
-        public List<sp_GetRequestInstanceExpan_Result> RequestInstanceExpans { get; set; }
-    }
-
-    public partial class RequestInstanceModel
-    {
-        public int RequestInstanceID { get; set; }
+        public int ID { get; set; }
         public Nullable<int> UserID { get; set; }
         public Nullable<int> RequestID { get; set; }
         public string DefaultContent { get; set; }
@@ -269,5 +284,22 @@ namespace DemoBPM.Controllers
         public string Mail { get; set; }
         public string Phone { get; set; }
         public string FullName { get; set; }
+        public string Code { get; set; }
+
+        public IEnumerable<sp_GetRequestInstanceExpan_Result> InputFieldInstances { get; set; }
     }
+
+    //public partial class RequestInstanceDetails
+    //{
+    //    public tbRequestInstance RequestInstance{ get; set; }
+    //    public IEnumerable<StepInstanceDetails> StepInstances { get; set; }
+    //    public IEnumerable<tbInputFieldInstance> InputFieldInstances { get; set; }
+    //    public tbUser User { get; set; }
+    //}
+
+    //public partial class StepInstanceDetails
+    //{
+    //    public tbStepInstance StepInstance { get; set; }
+    //    public IEnumerable<tbInputFieldInstance> InputFieldInstances { get; set; }
+    //}
 }

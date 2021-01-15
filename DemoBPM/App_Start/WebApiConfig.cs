@@ -44,7 +44,7 @@ namespace DemoBPM
 
             builder.EntitySet<tbRequestInstance>("tbRequestInstance");
             builder.EntityType<tbRequestInstance>().Collection.Function("GetRequestInstance").Returns<sp_GetRequestInstance_Result>();
-            builder.EntityType<tbRequestInstance>().Collection.Function("GetRequestInstanceAll").Returns<RI>();
+            builder.EntityType<tbRequestInstance>().Collection.Function("GetRequestInstanceDetails").Returns<RequestInstanceDetails>();
             builder.EntityType<tbRequestInstance>().Collection.Function("GetNumOfRequestInstance").Returns<sp_GetNumOfRequestInstance_Result>();
             builder.EntityType<tbRequestInstance>().Collection.Function("GetNumOfRequestInstanceToday").Returns<sp_GetNumOfRequestInstanceToday_Result>();
 

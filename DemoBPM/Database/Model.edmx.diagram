@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9daf50c09d0149cb92649194f9245f7a" Name="Diagram1" ZoomLevel="55">
+      <Diagram DiagramId="9daf50c09d0149cb92649194f9245f7a" Name="Diagram1" ZoomLevel="63">
         <EntityTypeShape EntityType="CseBpmDatabaseModel.tbInputField" Width="1.5" PointX="4.125" PointY="9.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CseBpmDatabaseModel.tbInputFieldInstance" Width="1.75" PointX="9.625" PointY="8.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CseBpmDatabaseModel.tbInputFieldType" Width="1.75" PointX="6.625" PointY="10.5" IsExpanded="true" />
