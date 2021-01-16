@@ -812,12 +812,12 @@
             <End Role="tbUser" EntitySet="tbUsers" />
             <End Role="tbDeviceToken" EntitySet="tbDeviceTokens" />
           </AssociationSet>
-          <FunctionImport Name="sp_GetInputFieldInstance" ReturnType="Collection(CseBpmDatabaseModel.sp_GetInputFieldInstance_Result)" />
           <FunctionImport Name="sp_GetRequestInstance" ReturnType="Collection(CseBpmDatabaseModel.sp_GetRequestInstance_Result)" />
           <FunctionImport Name="sp_GetRequestInstanceExpan" ReturnType="Collection(CseBpmDatabaseModel.sp_GetRequestInstanceExpan_Result)">
-            <Parameter Name="RequestInstanceID" Mode="In" Type="Int32" />
+          <Parameter Name="RequestInstanceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_GetStepInstanceDetails" ReturnType="Collection(CseBpmDatabaseModel.sp_GetStepInstanceDetails_Result)" />
+          <FunctionImport Name="sp_GetInputFieldInstance" ReturnType="Collection(CseBpmDatabaseModel.sp_GetInputFieldInstance_Result)" />
         </EntityContainer>
         <ComplexType Name="sp_GetUserRole_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -855,18 +855,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="sp_GetInputFieldInstance_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="Int32" Name="InputFieldID" Nullable="true" />
-          <Property Type="Int32" Name="StepInstanceID" Nullable="true" />
-          <Property Type="Int32" Name="RequestInstanceID" Nullable="true" />
-          <Property Type="Binary" Name="FileContent" Nullable="true" />
-          <Property Type="String" Name="FileName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="TextAnswer" Nullable="true" />
-          <Property Type="String" Name="FileUrl" Nullable="true" MaxLength="500" />
-          <Property Type="Int32" Name="InputFieldTypeID" Nullable="true" />
-          <Property Type="String" Name="Title" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="sp_GetRequestInstance_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="Int32" Name="UserID" Nullable="true" />
@@ -908,6 +896,19 @@
           <Property Type="Int32" Name="StepIndex" Nullable="true" />
           <Property Type="Int32" Name="ApproverRoleID" Nullable="true" />
           <Property Type="Boolean" Name="IsDefault" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_GetInputFieldInstance_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="InputFieldID" Nullable="true" />
+          <Property Type="Int32" Name="StepInstanceID" Nullable="true" />
+          <Property Type="Int32" Name="RequestInstanceID" Nullable="true" />
+          <Property Type="Binary" Name="FileContent" Nullable="true" />
+          <Property Type="String" Name="FileName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="TextAnswer" Nullable="true" />
+          <Property Type="String" Name="FileUrl" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="InputFieldTypeID" Nullable="true" />
+          <Property Type="String" Name="Title" Nullable="true" />
+          <Property Type="Int32" Name="IpIndex" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1074,22 +1075,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_GetInputFieldInstance" FunctionName="CseBpmDatabaseModel.Store.sp_GetInputFieldInstance">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="CseBpmDatabaseModel.sp_GetInputFieldInstance_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="InputFieldID" ColumnName="InputFieldID" />
-                <ScalarProperty Name="StepInstanceID" ColumnName="StepInstanceID" />
-                <ScalarProperty Name="RequestInstanceID" ColumnName="RequestInstanceID" />
-                <ScalarProperty Name="FileContent" ColumnName="FileContent" />
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
-                <ScalarProperty Name="TextAnswer" ColumnName="TextAnswer" />
-                <ScalarProperty Name="FileUrl" ColumnName="FileUrl" />
-                <ScalarProperty Name="InputFieldTypeID" ColumnName="InputFieldTypeID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_GetRequestInstance" FunctionName="CseBpmDatabaseModel.Store.sp_GetRequestInstance">
             <ResultMapping>
               <ComplexTypeMapping TypeName="CseBpmDatabaseModel.sp_GetRequestInstance_Result">
@@ -1141,6 +1126,23 @@
                 <ScalarProperty Name="StepIndex" ColumnName="StepIndex" />
                 <ScalarProperty Name="ApproverRoleID" ColumnName="ApproverRoleID" />
                 <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetInputFieldInstance" FunctionName="CseBpmDatabaseModel.Store.sp_GetInputFieldInstance">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CseBpmDatabaseModel.sp_GetInputFieldInstance_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="InputFieldID" ColumnName="InputFieldID" />
+                <ScalarProperty Name="StepInstanceID" ColumnName="StepInstanceID" />
+                <ScalarProperty Name="RequestInstanceID" ColumnName="RequestInstanceID" />
+                <ScalarProperty Name="FileContent" ColumnName="FileContent" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="TextAnswer" ColumnName="TextAnswer" />
+                <ScalarProperty Name="FileUrl" ColumnName="FileUrl" />
+                <ScalarProperty Name="InputFieldTypeID" ColumnName="InputFieldTypeID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="IpIndex" ColumnName="IpIndex" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

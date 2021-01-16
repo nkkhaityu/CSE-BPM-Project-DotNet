@@ -23,5 +23,6 @@ namespace DemoBPM.Database
         public string FileUrl { get; set; }
         public Nullable<int> InputFieldTypeID { get; set; }
         public string Title { get; set; }
+        public Nullable<int> IpIndex { get; set; }
     }
 }
