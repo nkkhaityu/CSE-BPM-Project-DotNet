@@ -58,7 +58,7 @@
           <Property Name="StartDate" Type="datetime" />
           <Property Name="DueDate" Type="datetime" />
           <Property Name="NumOfSteps" Type="int" />
-          <Property Name="Keyword" Type="nchar" MaxLength="50" />
+          <Property Name="Keyword" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tbRequestInstance">
           <Key>
@@ -464,7 +464,7 @@
           <NavigationProperty Name="tbInputFields" Relationship="Self.FK_tbInputField_tbRequest" FromRole="tbRequest" ToRole="tbInputField" />
           <NavigationProperty Name="tbRequestInstances" Relationship="Self.FK_tbRequestInstance_tbRequest" FromRole="tbRequest" ToRole="tbRequestInstance" />
           <NavigationProperty Name="tbSteps" Relationship="Self.FK_tbStep_tbRequest" FromRole="tbRequest" ToRole="tbStep" />
-          <Property Name="Keyword" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Keyword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbRequestInstance">
           <Key>

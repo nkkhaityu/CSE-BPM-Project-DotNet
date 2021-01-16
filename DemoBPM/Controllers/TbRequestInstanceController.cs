@@ -230,10 +230,8 @@ namespace DemoBPM.Controllers
                     content_available = true,
                     notification = new
                     {
-                        title = "Cập nhật yêu cầu",
-                        body = "Mã yêu cầu: " + requestInstance.ID + System.Environment.NewLine + 
-                               "Loại yêu cầu: " + requestInstance.RequestName + System.Environment.NewLine + 
-                               "Bước hiện tại: " + requestInstance.CurrentStepIndex + "/" + requestInstance.CurrentStepIndex + System.Environment.NewLine + 
+                        title = "Yêu cầu " + requestInstance.Keyword.Trim() + " - " + "mã " + requestInstance.ID,
+                        body = "Bước hiện tại: " + requestInstance.CurrentStepIndex + "/" + requestInstance.NumOfSteps + System.Environment.NewLine + 
                                "Trạng thái: " + status,
                         badge = 1
                     },
