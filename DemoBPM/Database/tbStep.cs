@@ -27,6 +27,7 @@ namespace DemoBPM.Database
         public string Description { get; set; }
         public Nullable<int> ApproverRoleID { get; set; }
         public Nullable<int> StepIndex { get; set; }
+        public Nullable<bool> IsDefault { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbInputField> tbInputFields { get; set; }

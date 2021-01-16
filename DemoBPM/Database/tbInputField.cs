@@ -25,6 +25,7 @@ namespace DemoBPM.Database
         public Nullable<int> RequestID { get; set; }
         public Nullable<int> InputFieldTypeID { get; set; }
         public string Title { get; set; }
+        public Nullable<int> IpIndex { get; set; }
     
         public virtual tbInputFieldType tbInputFieldType { get; set; }
         public virtual tbRequest tbRequest { get; set; }

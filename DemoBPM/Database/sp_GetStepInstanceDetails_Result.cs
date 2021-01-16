@@ -26,5 +26,6 @@ namespace DemoBPM.Database
         public string Description { get; set; }
         public Nullable<int> StepIndex { get; set; }
         public Nullable<int> ApproverRoleID { get; set; }
+        public Nullable<bool> IsDefault { get; set; }
     }
 }

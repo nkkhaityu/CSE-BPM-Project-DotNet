@@ -132,6 +132,7 @@ namespace DemoBPM.Controllers
                         i.InputFieldTypeID = ip.InputFieldTypeID;
                         ipExpans.Add(i);
                     }
+
                     r.InputFieldInstances = ipExpans;
                 }
                 resRIs.Add(r);
@@ -206,6 +207,22 @@ namespace DemoBPM.Controllers
                 //Sender Id - From firebase project setting  
                 //tRequest.Headers.Add(string.Format("Sender: id={0}", "XXXXX.."));
                 tRequest.ContentType = "application/json";
+                var status = "";
+                switch (requestInstance.Status)
+                {
+                    case "active":
+                        status = "Đang thực hiện";
+                        break;
+                    case "done":
+                        status = "Thành công";
+                        break;
+                    case "failed":
+                        status = "Thất bại";
+                        break;
+                    default:
+                        status = "Mới";
+                        break;
+                }
                 var payload = new
                 {
                     registration_ids = deviceIds,
@@ -214,7 +231,10 @@ namespace DemoBPM.Controllers
                     notification = new
                     {
                         title = "Cập nhật yêu cầu",
-                        body = "Nhấp để mở chi tiết.",
+                        body = "Mã yêu cầu: " + requestInstance.ID + System.Environment.NewLine + 
+                               "Loại yêu cầu: " + requestInstance.RequestName + System.Environment.NewLine + 
+                               "Bước hiện tại: " + requestInstance.CurrentStepIndex + "/" + requestInstance.CurrentStepIndex + System.Environment.NewLine + 
+                               "Trạng thái: " + status,
                         badge = 1
                     },
                     data = new
