@@ -112,6 +112,7 @@ namespace DemoBPM.Controllers
                 r.Keyword = ri.Keyword;
                 r.RequestName = ri.RequestName;
                 r.RequestDescription = ri.RequestDescription;
+                r.ResponseMessage = ri.ResponseMessage;
                 r.NumOfSteps = ri.NumOfSteps;
                 r.UserName = ri.UserName;
                 r.Mail = ri.Mail;
@@ -248,13 +249,16 @@ namespace DemoBPM.Controllers
                             ApproverID = requestInstance.ApproverID,
                             CreatedDate = requestInstance.CreatedDate,
                             FinishedDate = requestInstance.FinishedDate,
+                            Keyword = requestInstance.Keyword,
                             RequestName = requestInstance.RequestName,
                             RequestDescription = requestInstance.RequestDescription,
+                            ResponseMessage = requestInstance.ResponseMessage,
                             NumOfSteps = requestInstance.NumOfSteps,
                             UserName = requestInstance.UserName,
                             Mail = requestInstance.Mail,
                             Phone = requestInstance.Phone,
-                            FullName = requestInstance.FullName
+                            FullName = requestInstance.FullName,
+                            Code = requestInstance.Code
                         },
                         click_action = "FLUTTER_NOTIFICATION_CLICK"
                     }
@@ -297,6 +301,7 @@ namespace DemoBPM.Controllers
         public string Keyword { get; set; }
         public string RequestName { get; set; }
         public string RequestDescription { get; set; }
+        public string ResponseMessage { get; set; }
         public Nullable<int> NumOfSteps { get; set; }
         public string UserName { get; set; }
         public string Mail { get; set; }
