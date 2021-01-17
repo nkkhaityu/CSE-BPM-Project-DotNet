@@ -22,6 +22,7 @@ namespace DemoBPM.Database
         public Nullable<int> ApproverID { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> FinishedDate { get; set; }
+        public string ResponseMessage { get; set; }
         public string Keyword { get; set; }
         public string RequestName { get; set; }
         public string RequestDescription { get; set; }
