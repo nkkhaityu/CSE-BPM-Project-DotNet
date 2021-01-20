@@ -212,16 +212,16 @@ namespace DemoBPM.Controllers
                 switch (requestInstance.Status)
                 {
                     case "active":
-                        status = "Đang thực hiện";
+                        status = "Trạng thái: " + "Đang thực hiện";
                         break;
                     case "done":
-                        status = "Thành công";
+                        status = "✅ Trạng thái: " + "Thành công";
                         break;
                     case "failed":
-                        status = "Thất bại";
+                        status = "❌ Trạng thái: " + "Thất bại";
                         break;
                     default:
-                        status = "Mới";
+                        status = "Trạng thái: " + "Mới";
                         break;
                 }
                 var payload = new
@@ -233,7 +233,7 @@ namespace DemoBPM.Controllers
                     {
                         title = "Yêu cầu " + requestInstance.Keyword.Trim() + " - " + "mã " + requestInstance.ID,
                         body = "Bước hiện tại: " + requestInstance.CurrentStepIndex + "/" + requestInstance.NumOfSteps + System.Environment.NewLine + 
-                               "Trạng thái: " + status,
+                               status,
                         badge = 1
                     },
                     data = new
