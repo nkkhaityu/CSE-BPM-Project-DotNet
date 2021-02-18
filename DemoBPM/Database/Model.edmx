@@ -14,6 +14,14 @@
           <Property Name="DeviceToken" Type="nvarchar(max)" />
           <Property Name="IsLogin" Type="bit" />
         </EntityType>
+        <EntityType Name="tbDropdownOption">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InputFieldID" Type="int" />
+          <Property Name="Content" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="tbInputField">
           <Key>
             <PropertyRef Name="ID" />
@@ -137,6 +145,18 @@
             </Principal>
             <Dependent Role="tbDeviceToken">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbDropdownOption_tbInputField">
+          <End Role="tbInputField" Type="Self.tbInputField" Multiplicity="0..1" />
+          <End Role="tbDropdownOption" Type="Self.tbDropdownOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbInputField">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbDropdownOption">
+              <PropertyRef Name="InputFieldID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -331,6 +351,7 @@
         <Function Name="sp_GetUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="CseBpmDatabaseModelStoreContainer">
           <EntitySet Name="tbDeviceToken" EntityType="Self.tbDeviceToken" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbDropdownOption" EntityType="Self.tbDropdownOption" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbInputField" EntityType="Self.tbInputField" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbInputFieldInstance" EntityType="Self.tbInputFieldInstance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbInputFieldType" EntityType="Self.tbInputFieldType" Schema="dbo" store:Type="Tables" />
@@ -344,6 +365,10 @@
           <AssociationSet Name="FK_tbDeviceToken_tbUser" Association="Self.FK_tbDeviceToken_tbUser">
             <End Role="tbUser" EntitySet="tbUser" />
             <End Role="tbDeviceToken" EntitySet="tbDeviceToken" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbDropdownOption_tbInputField" Association="Self.FK_tbDropdownOption_tbInputField">
+            <End Role="tbInputField" EntitySet="tbInputField" />
+            <End Role="tbDropdownOption" EntitySet="tbDropdownOption" />
           </AssociationSet>
           <AssociationSet Name="FK_tbInputField_tbInputFieldType" Association="Self.FK_tbInputField_tbInputFieldType">
             <End Role="tbInputFieldType" EntitySet="tbInputFieldType" />
@@ -424,6 +449,7 @@
           <NavigationProperty Name="tbStep" Relationship="Self.FK_tbInputField_tbStep" FromRole="tbInputField" ToRole="tbStep" />
           <NavigationProperty Name="tbInputFieldInstances" Relationship="Self.FK_tbInputFieldInstance_tbInputField" FromRole="tbInputField" ToRole="tbInputFieldInstance" />
           <Property Name="IpIndex" Type="Int32" />
+          <NavigationProperty Name="tbDropdownOptions" Relationship="CseBpmDatabaseModel.FK_tbDropdownOption_tbInputField" FromRole="tbInputField" ToRole="tbDropdownOption" />
         </EntityType>
         <EntityType Name="tbInputFieldInstance">
           <Key>
@@ -820,6 +846,11 @@
           <FunctionImport Name="sp_GetStepInstanceDetails" ReturnType="Collection(CseBpmDatabaseModel.sp_GetStepInstanceDetails_Result)" />
           <FunctionImport Name="sp_GetInputFieldInstance" ReturnType="Collection(CseBpmDatabaseModel.sp_GetInputFieldInstance_Result)" />
           <FunctionImport Name="sp_GetRequestInstance" ReturnType="Collection(CseBpmDatabaseModel.sp_GetRequestInstance_Result)" />
+          <EntitySet Name="tbDropdownOptions" EntityType="CseBpmDatabaseModel.tbDropdownOption" />
+          <AssociationSet Name="FK_tbDropdownOption_tbInputField" Association="CseBpmDatabaseModel.FK_tbDropdownOption_tbInputField">
+            <End Role="tbInputField" EntitySet="tbInputFields" />
+            <End Role="tbDropdownOption" EntitySet="tbDropdownOptions" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_GetUserRole_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -913,6 +944,27 @@
           <Property Type="String" Name="FullName" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="Code" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="tbDropdownOption">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InputFieldID" Type="Int32" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbInputField" Relationship="CseBpmDatabaseModel.FK_tbDropdownOption_tbInputField" FromRole="tbDropdownOption" ToRole="tbInputField" />
+        </EntityType>
+        <Association Name="FK_tbDropdownOption_tbInputField">
+          <End Type="CseBpmDatabaseModel.tbInputField" Role="tbInputField" Multiplicity="0..1" />
+          <End Type="CseBpmDatabaseModel.tbDropdownOption" Role="tbDropdownOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbInputField">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbDropdownOption">
+              <PropertyRef Name="InputFieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1151,6 +1203,15 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="tbDropdownOptions">
+            <EntityTypeMapping TypeName="CseBpmDatabaseModel.tbDropdownOption">
+              <MappingFragment StoreEntitySet="tbDropdownOption">
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="InputFieldID" ColumnName="InputFieldID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

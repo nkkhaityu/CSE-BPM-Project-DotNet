@@ -37,6 +37,8 @@
         <EntityTypeShape EntityType="CseBpmDatabaseModel.tbDeviceToken" Width="1.5" PointX="9.625" PointY="2" />
         <AssociationConnector Association="CseBpmDatabaseModel.FK_tbDeviceToken_tbUser" ManuallyRouted="false" >
         </AssociationConnector>
+        <EntityTypeShape EntityType="CseBpmDatabaseModel.tbDropdownOption" Width="1.5" PointX="6.375" PointY="13.125" />
+        <AssociationConnector Association="CseBpmDatabaseModel.FK_tbDropdownOption_tbInputField" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

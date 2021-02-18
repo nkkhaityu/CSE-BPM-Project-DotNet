@@ -38,6 +38,7 @@ namespace DemoBPM.Database
         public virtual DbSet<tbUser> tbUsers { get; set; }
         public virtual DbSet<tbUserRole> tbUserRoles { get; set; }
         public virtual DbSet<tbDeviceToken> tbDeviceTokens { get; set; }
+        public virtual DbSet<tbDropdownOption> tbDropdownOptions { get; set; }
     
         public virtual ObjectResult<sp_GetUserRole_Result> sp_GetUserRole()
         {

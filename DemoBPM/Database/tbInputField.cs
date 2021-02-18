@@ -18,6 +18,7 @@ namespace DemoBPM.Database
         public tbInputField()
         {
             this.tbInputFieldInstances = new HashSet<tbInputFieldInstance>();
+            this.tbDropdownOptions = new HashSet<tbDropdownOption>();
         }
     
         public int ID { get; set; }
@@ -32,5 +33,7 @@ namespace DemoBPM.Database
         public virtual tbStep tbStep { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbInputFieldInstance> tbInputFieldInstances { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbDropdownOption> tbDropdownOptions { get; set; }
     }
 }

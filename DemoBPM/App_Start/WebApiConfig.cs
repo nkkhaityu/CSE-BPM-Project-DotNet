@@ -55,6 +55,9 @@ namespace DemoBPM
 
             builder.EntitySet<tbDeviceToken>("tbDeviceToken");
 
+            builder.EntitySet<tbDropdownOption>("tbDropdownOption");
+            builder.EntityType<tbDropdownOption>().Collection.Action("PostListEntity").Parameter<string>("value");
+
             config.MapODataServiceRoute("odata", "odata", model: builder.GetEdmModel());
         }
     }
