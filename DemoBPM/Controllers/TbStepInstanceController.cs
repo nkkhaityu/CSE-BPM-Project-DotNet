@@ -43,7 +43,6 @@ namespace DemoBPM.Controllers
                 return BadRequest(ModelState);
             }
             se.CreatedDate = TimeZoneInfo.ConvertTime((DateTime)se.CreatedDate, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
-            se.FinishedDate = TimeZoneInfo.ConvertTime((DateTime)se.FinishedDate, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
             _db.tbStepInstances.Add(se);
             await _db.SaveChangesAsync();
 
