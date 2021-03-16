@@ -2,6 +2,7 @@
 using DemoBPM.Common.Security;
 using DemoBPM.Database;
 using Microsoft.AspNet.OData;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -39,6 +40,10 @@ namespace DemoBPM.Controllers
             {
                 return BadRequest();
             }
+
+            se.CreatedTime = TimeZoneInfo.ConvertTime((DateTime)se.CreatedTime, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
+            se.StartDate = TimeZoneInfo.ConvertTime((DateTime)se.StartDate, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
+            se.DueDate = TimeZoneInfo.ConvertTime((DateTime)se.DueDate, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
 
             _db.tbRequests.Add(se);
             await _db.SaveChangesAsync();
